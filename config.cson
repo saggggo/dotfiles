@@ -1,0 +1,9 @@
+"*":
+  "exception-reporting":
+    userId: "f8c095e5-4ad5-8ec3-be60-348669f44d4b"
+  minimap:
+    plugins:
+      "split-diff": true
+      "split-diffDecorationsZIndex": 0
+  welcome:
+    showOnStartup: false
