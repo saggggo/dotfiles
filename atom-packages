@@ -1,6 +1,19 @@
+atom-alignment@0.12.1
 atom-beautify@0.29.10
+atom-terminal-panel@4.4.4
 file-icons@1.7.17
+git-plus@5.16.2
+highlight-line@0.11.1
+ide-haskell@1.6.5
+ide-haskell-hasktags@0.0.4
+japanese-menu@1.8.0
+language-haskell@1.7.17
+linter@1.11.14
+linter-php@1.2.0
+merge-conflicts@1.4.4
 minimap@4.24.7
-minimap-split-diff@0.3.1
-
+pretty-json@1.4.4
+script@3.8.2
+terminal-plus@0.14.5
+xml-formatter@0.10.0
 
