@@ -1,8 +1,7 @@
 syntax on
 
 set title
-"set notitle "'vimを使ってくれてありがとう'を消す
-set number      
+set number
 set tabstop=2   "tab幅の設定
 set smartindent
 set expandtab   "TabをSpaceにする
@@ -13,3 +12,7 @@ set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 let g:netrw_lifestyle =4 
 "'o'でファイルを開くときは常に下側
 let g:netrw_alto = 1
+
+set nowrapscan
+set clipboard=unnamed,autoselect
+set shiftwidth=4

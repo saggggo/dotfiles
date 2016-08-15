@@ -5,6 +5,7 @@ promptinit
 prompt adam1
 
 setopt histignorealldups sharehistory
+setopt ignore_eof #ctrl+d(EOF)が入力されてもターミナルを閉じない
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
@@ -35,4 +36,3 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-source /usr/local/bin/aws_zsh_completer.sh
