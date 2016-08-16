@@ -69,10 +69,11 @@ nnoremap <C-e> <End>
 "map <F4>:tabclose<CR>
 "}}}
 
-"vim-plug  
+"pluginの管理
+"--vim-plug  
+" let's run :PlugInstall !
 call plug#begin('~/.vim/plugged')
-  Plug 'colors/molokai'
-  Plug 'indent_guides'
-  Plug 'https://github.com/nathanaelkane/vim-indent-guides.git'
+  Plug 'tomasr/molokai'
+  Plug 'nathanaelkane/vim-indent-guides'
 call plug#end()
 

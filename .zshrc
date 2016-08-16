@@ -1,11 +1,14 @@
 # Set up the prompt
+#shwllscriptでは読み込まれないことに注意！
 
 autoload -Uz promptinit
 promptinit
 prompt adam1
 
 setopt histignorealldups sharehistory
-setopt ignore_eof #ctrl+d(EOF)が入力されてもターミナルを閉じない
+
+#ctrl+d(EOF)が入力されてもターミナルを閉じない
+setopt ignore_eof 
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
