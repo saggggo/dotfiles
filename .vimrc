@@ -35,25 +35,36 @@ set ignorecase
 set smartcase
 "}}}
 
+"検索文字列のハイライト有効化
+set hlsearch
+
 "tab幅の設定
 set tabstop=2
 
 set smartindent
 
+"カソール位置を中央に保つ
+set scrolloff=10
 "TabをSpaceにする
 set expandtab
 
-"不可視文字の可視化
+"不可視文字の可視化{{{
 set list
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
-
+"}}}
+"
 "netrw は常にtree view
-let g:netrw_lifestyle =4 
-"'o'でファイルを開くときは常に下側
+let g:netrw_liststyle =3
+
+"'o'でファイルを開くときは常に下側に開く
 let g:netrw_alto = 1
 
 set nowrapscan
-set clipboard=unnamed,autoselect
+
+"コピペできるようにする
+"+clipboardの場合
+set clipboard=unnamedplus
+
 set shiftwidth=4
 
 " C-a, C-e で行頭行末に移動{{{
@@ -61,6 +72,21 @@ inoremap <C-a> <ESC>^i
 inoremap <C-e> <ESC>$i
 nnoremap <C-a> <Home>
 nnoremap <C-e> <End>
+"}}}
+
+"表示行単位で移動{{{
+nnoremap j gj
+onoremap j gj
+xnoremap j gj
+nnoremap k gk
+onoremap k gk
+xnoremap k gk
+nnoremap <Down> gj
+onoremap <Down> gj
+xnoremap <Down> gj
+nnoremap <Up> gk
+onoremap <Up> gk
+xnoremap <Up> gk
 "}}}
 
 "マップ定義{{{
@@ -76,4 +102,3 @@ call plug#begin('~/.vim/plugged')
   Plug 'tomasr/molokai'
   Plug 'nathanaelkane/vim-indent-guides'
 call plug#end()
-
