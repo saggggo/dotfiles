@@ -18,6 +18,8 @@ set title
 "行数を表示
 set number
 
+"右下にruler(カソールの位置を示すやつ)の表示
+set ruler
 "カソール行の強調
 set cursorline
 
@@ -102,3 +104,12 @@ call plug#begin('~/.vim/plugged')
   Plug 'tomasr/molokai'
   Plug 'nathanaelkane/vim-indent-guides'
 call plug#end()
+
+"OSごとの設定
+if system("uname")=="Linux\n"
+    "Linux用の設定
+elseif system("uname")=="Darwin\n"
+    "Mac用の設定
+elseif has("win32")
+    "Windows用の設定
+endif
