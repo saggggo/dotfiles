@@ -98,8 +98,17 @@ xnoremap <Up> gk
 "}}}
 
 "pluginの管理
-"--vim-plug  
-" let's run :PlugInstall !
+"---------------vim-plug  -------------------
+"vim-plugがなかったら自動でインストール
+if has('vim_starting')
+  if !filereadable(expand('~/.vim/autoload/vim-plug/plug.vim'))
+    echo 'install vim-plug...'
+    call system('mkdir -p ~/.vim/autoload/vim-plug')
+    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/autoload/vim-plug/')
+  end
+endif
+
+"let's run :PlugInstall !
 call plug#begin('~/.vim/plugged')
   Plug 'tomasr/molokai'
   Plug 'nathanaelkane/vim-indent-guides'
