@@ -98,6 +98,7 @@ xnoremap <Up> gk
 "}}}
 
 "pluginの管理
+"set rtp+=~/.vim/plugged
 "---------------vim-plug  -------------------
 "vim-plugがなかったら自動でインストール
 if has('vim_starting')
@@ -110,10 +111,14 @@ endif
 
 "let's run :PlugInstall !
 call plug#begin('~/.vim/plugged')
-  Plug 'tomasr/molokai'
+  "color schema{{{
+    Plug 'https://github.com/nanotech/jellybeans.vim'
+    "Plug 'tomasr/molokai'
+  "}}}
+  Plug 'scrooloose/nerdtree'
   Plug 'nathanaelkane/vim-indent-guides'
 call plug#end()
-
+colorscheme jellybeans
 "OSごとの設定
 if system("uname")=="Linux\n"
     "Linux用の設定
