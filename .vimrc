@@ -3,11 +3,41 @@ filetype plugin indent on
 "vi互換機能を無効化
 if ! &compatible | set nocompatible | endif
 
-"syntax 有効化
-syntax on
+"pluginの管理
+"set rtp+=~/.vim/plugged
+"---------------vim-plug  -------------------
+"vim-plugがなかったら自動でインストール
+if has('vim_starting')
+  if !filereadable(expand('~/.vim/autoload/vim-plug/plug.vim'))
+    echo 'install vim-plug...'
+    call system('mkdir -p ~/.vim/autoload/vim-plug')
+    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/autoload/vim-plug/')
+  end
+endif
+
+"let's run :PlugInstall !
+call plug#begin('~/.vim/plugged')
+  "color schema{{{
+    Plug 'https://github.com/w0ng/vim-hybrid'
+    Plug 'https://github.com/nanotech/jellybeans.vim'
+    "Plug 'tomasr/molokai'
+  "}}}
+  Plug 'scrooloose/nerdtree'
+  Plug 'nathanaelkane/vim-indent-guides'
+call plug#end()
+
+"常にNERDTreeを初期起動したい場合
+"autocmd vimenter * NERDTree
+map <C-n> :NERDTreeToggle<CR>
 
 "文字コード設定
 scriptencoding utf-8
+
+"syntax 有効化
+syntax on
+
+"colorschemeの設定
+colorscheme jellybeans
 
 "括弧入力時に対応する括弧を表示
 set showmatch
@@ -96,34 +126,6 @@ xnoremap <Up> gk
 "map <F3> <ESC>:tabnext<CR>
 "map <F4>:tabclose<CR>
 "}}}
-
-"pluginの管理
-"set rtp+=~/.vim/plugged
-"---------------vim-plug  -------------------
-"vim-plugがなかったら自動でインストール
-if has('vim_starting')
-  if !filereadable(expand('~/.vim/autoload/vim-plug/plug.vim'))
-    echo 'install vim-plug...'
-    call system('mkdir -p ~/.vim/autoload/vim-plug')
-    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/autoload/vim-plug/')
-  end
-endif
-
-"let's run :PlugInstall !
-call plug#begin('~/.vim/plugged')
-  "color schema{{{
-    Plug 'https://github.com/nanotech/jellybeans.vim'
-    Plug 'tomasr/molokai'
-  "}}}
-  Plug 'scrooloose/nerdtree'
-  Plug 'https://github.com/Shougo/unite'
-  Plug 'nathanaelkane/vim-indent-guides'
-call plug#end()
-colorscheme jellybeans
-
-"常にNERDTreeを初期起動したい場合
-"autocmd vimenter * NERDTree
-map <C-n> :NERDTreeToggle<CR>
 
 "OSごとの設定
 if system("uname")=="Linux\n"
