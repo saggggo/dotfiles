@@ -113,12 +113,18 @@ endif
 call plug#begin('~/.vim/plugged')
   "color schema{{{
     Plug 'https://github.com/nanotech/jellybeans.vim'
-    "Plug 'tomasr/molokai'
+    Plug 'tomasr/molokai'
   "}}}
   Plug 'scrooloose/nerdtree'
+  Plug 'https://github.com/Shougo/unite'
   Plug 'nathanaelkane/vim-indent-guides'
 call plug#end()
 colorscheme jellybeans
+
+"常にNERDTreeを初期起動したい場合
+"autocmd vimenter * NERDTree
+map <C-n> :NERDTreeToggle<CR>
+
 "OSごとの設定
 if system("uname")=="Linux\n"
     "Linux用の設定
