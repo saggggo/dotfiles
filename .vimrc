@@ -4,8 +4,7 @@ filetype plugin indent on
 if ! &compatible | set nocompatible | endif
 
 "pluginの管理
-"set rtp+=~/.vim/plugged
-"---------------vim-plug  -------------------
+"---------------------vim-plug  ------------------------------------------------
 "vim-plugがなかったら自動でインストール
 if has('vim_starting')
   if !filereadable(expand('~/.vim/autoload/vim-plug/plug.vim'))
@@ -18,17 +17,14 @@ endif
 "let's run :PlugInstall !
 call plug#begin('~/.vim/plugged')
   "color schema{{{
-    Plug 'https://github.com/w0ng/vim-hybrid'
+    "Plug 'https://github.com/w0ng/vim-hybrid'
     Plug 'https://github.com/nanotech/jellybeans.vim'
     "Plug 'tomasr/molokai'
   "}}}
   Plug 'scrooloose/nerdtree'
   Plug 'nathanaelkane/vim-indent-guides'
 call plug#end()
-
-"常にNERDTreeを初期起動したい場合
-"autocmd vimenter * NERDTree
-map <C-n> :NERDTreeToggle<CR>
+"---------------------------------------------------------------------------
 
 "文字コード設定
 scriptencoding utf-8
@@ -41,6 +37,9 @@ colorscheme jellybeans
 
 "括弧入力時に対応する括弧を表示
 set showmatch
+
+"バックアップを取らない
+set nobackup
 
 "windowのtitle変更
 set title
@@ -63,8 +62,8 @@ set autoindent
 set mouse=a
 
 "検索の大文字/小文字の区別を改善{{{
-set ignorecase
-set smartcase
+  set ignorecase
+  set smartcase
 "}}}
 
 "検索文字列のハイライト有効化
@@ -77,20 +76,22 @@ set smartindent
 
 "カソール位置を中央に保つ
 set scrolloff=10
+
 "TabをSpaceにする
 set expandtab
 
 "不可視文字の可視化{{{
-set list
-set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+  set list
+  set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 "}}}
-"
+
 "netrw は常にtree view
 let g:netrw_liststyle =3
 
 "'o'でファイルを開くときは常に下側に開く
 let g:netrw_alto = 1
 
+"検索時に先頭に戻らない
 set nowrapscan
 
 "コピペできるようにする
@@ -99,39 +100,47 @@ set clipboard=unnamedplus
 
 set shiftwidth=4
 
-" C-a, C-e で行頭行末に移動{{{
-inoremap <C-a> <ESC>^i
-inoremap <C-e> <ESC>$i
-nnoremap <C-a> <Home>
-nnoremap <C-e> <End>
+"C-a, C-e で行頭行末に移動{{{
+  inoremap <C-a> <ESC>^i
+  inoremap <C-e> <ESC>$i
+  nnoremap <C-a> <Home>
+  nnoremap <C-e> <End>
 "}}}
 
 "表示行単位で移動{{{
-nnoremap j gj
-onoremap j gj
-xnoremap j gj
-nnoremap k gk
-onoremap k gk
-xnoremap k gk
-nnoremap <Down> gj
-onoremap <Down> gj
-xnoremap <Down> gj
-nnoremap <Up> gk
-onoremap <Up> gk
-xnoremap <Up> gk
+  nnoremap j gj
+  onoremap j gj
+  xnoremap j gj
+  nnoremap k gk
+  onoremap k gk
+  xnoremap k gk
+  nnoremap <Down> gj
+  onoremap <Down> gj
+  xnoremap <Down> gj
+  nnoremap <Up> gk
+  onoremap <Up> gk
+  xnoremap <Up> gk
 "}}}
 
 "マップ定義{{{
-"map <F2> <ESC>:tabprevious<CR>
-"map <F3> <ESC>:tabnext<CR>
-"map <F4>:tabclose<CR>
+  "map <F2> <ESC>:tabprevious<CR>
+  "map <F3> <ESC>:tabnext<CR>
+  "map <F4>:tabclose<CR>
+"}}}
+
+"NERDTree設定{{{
+  "常にNERDTreeを初期起動したい場合
+  "autocmd vimenter * NERDTree
+  map <C-n> :NERDTreeToggle<CR>
 "}}}
 
 "OSごとの設定
 if system("uname")=="Linux\n"
-    "Linux用の設定
+    "Linux
 elseif system("uname")=="Darwin\n"
-    "Mac用の設定
+    "Mac
 elseif has("win32")
-    "Windows用の設定
+  "Windows
+  "ディレクトリパスの指定に/を使えるようにする
+  set shellslash
 endif
