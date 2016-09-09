@@ -1,6 +1,12 @@
 # Set up the prompt
-#shwllscriptでは読み込まれないことに注意！
+#shellscriptでは読み込まれないことに注意！
 
+#文字コードUTF-8
+export LANG=ja_JP.UTF-8
+#コマンドのスペルミスを指摘
+setopt correct
+#補完
+#コマンド特有の補完
 autoload -Uz promptinit
 promptinit
 prompt adam1
@@ -13,14 +19,28 @@ setopt ignore_eof
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.zsh_history
-
-# Use modern completion system
-autoload -Uz compinit
-compinit
+#履歴ファイル設定{{{
+  # Keep 100000 lines of history within the shell and save it to ~/.zsh_history:
+  HISTFILE=~/.zsh_history
+  HISTSIZE=100000
+  SAVEHIST=100000
+  #rootなら履歴を残さない
+  if [ $UID = 0 ]; then
+      unset HISTFILE
+      SAVEHIST=0
+  fi
+  #ignore duplication command history list
+  setopt hist_ignore_dups
+  #履歴を複数の端末で今日烏有
+  setopt share_history
+  #重複するコマンドは古い方を削除
+  setopt hist_ignore_all_dups
+  #複数のzshを同時に使用した際に履歴ファイルを上書きせず追加する
+  setopt append_history
+#}}}
+ # Use modern completion system
+ autoload -Uz compinit
+ compinit
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
