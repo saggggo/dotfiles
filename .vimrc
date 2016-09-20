@@ -129,8 +129,7 @@ set shiftwidth=4
 "}}}
 
 "NERDTree設定{{{
-  "常にNERDTreeを初期起動したい場合
-  "autocmd vimenter * NERDTree
+  let g:NERDTreeMouseMode=3
   map <C-n> :NERDTreeToggle<CR>
 "}}}
 
