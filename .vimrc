@@ -11,9 +11,11 @@ if has('vim_starting')
     echo 'install vim-plug...'
     call system('mkdir -p ~/.vim/autoload/vim-plug')
     call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/autoload/vim-plug/')
+    call system('cp .vim/autoload/vim-plug/plug.vim .vim/autoload/')
+    :source ~/.vimrc
+    :PlugInstall
   end
 endif
-
 "let's run :PlugInstall !
 call plug#begin('~/.vim/plugged')
   "color schema{{{
