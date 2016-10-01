@@ -31,7 +31,7 @@ bindkey -e
   fi
   #ignore duplication command history list
   setopt hist_ignore_dups
-  #履歴を複数の端末で今日烏有
+  #履歴を複数の端末で共有
   setopt share_history
   #重複するコマンドは古い方を削除
   setopt hist_ignore_all_dups
