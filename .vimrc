@@ -133,6 +133,7 @@ set shiftwidth=4
 "NERDTree設定{{{
   let g:NERDTreeMouseMode=3
   map <C-n> :NERDTreeToggle<CR>
+  autocmd bufenter * if(winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "}}}
 
 "OSごとの設定
