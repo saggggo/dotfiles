@@ -1,4 +1,4 @@
-DOT_FILES=(.gitignore .vimrc .bashrc .zshenv .zshrc )
+DOT_FILES=(.vimrc .bashrc .zshenv .zshrc .gitconfig)
 
 for file in ${DOT_FILES[@]}
 do
