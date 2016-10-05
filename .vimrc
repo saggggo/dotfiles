@@ -98,8 +98,9 @@ set nowrapscan
 
 "コピペできるようにする
 "+clipboardの場合
-set clipboard=unnamedplus
-
+if has('unnamedplus')
+  set clipboard=unnamedplus
+endif
 set shiftwidth=4
 
 "C-a, C-e で行頭行末に移動{{{

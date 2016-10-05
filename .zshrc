@@ -42,6 +42,12 @@ bindkey -e
  autoload -Uz compinit
  compinit
 
+#custom alias
+alias pstree='pstree -p'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias pgrep='pgrep -l'
+
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
