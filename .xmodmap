@@ -1,0 +1,10 @@
+!CapsLookの解除
+remove lock = Eisu_toggle
+remove control = Control_L
+
+!Caps_Lockにcontrolを割り当て
+keycode 66 = Control_L
+keycode 49 = Escape
+keycode 102 = Zenkaku_Hankaku
+
+add control = Control_L 
