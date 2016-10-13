@@ -1,4 +1,4 @@
-DOT_FILES=(.vimrc .bashrc .zshenv .zshrc .gitconfig)
+DOT_FILES=(.vimrc .bashrc .zshenv .zshrc .gitconfig .Xmodmap .xinputrc)
 
 for file in ${DOT_FILES[@]}
 do
