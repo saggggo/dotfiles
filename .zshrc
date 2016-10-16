@@ -66,4 +66,6 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-source /usr/local/bin/aws_zsh_completer.sh
+if [ -f $HOME/.zshrc.local ];then
+    source $HOME/.zshrc.local
+fi
