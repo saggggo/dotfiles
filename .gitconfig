@@ -1,3 +1,7 @@
 [user]
 	name = sagggggo
 	email = k10700460@yahoo.co.jp
+[alias]
+    st = status
+    br = branch -a
+    ch = checkout
