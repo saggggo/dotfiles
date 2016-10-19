@@ -25,6 +25,7 @@ call plug#begin('~/.vim/plugged')
   "}}}
   Plug 'scrooloose/nerdtree'
   Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'leafgarland/typescript-vim'
 call plug#end()
 "---------------------------------------------------------------------------
 
@@ -136,7 +137,9 @@ set shiftwidth=4
   map <C-n> :NERDTreeToggle<CR>
   autocmd bufenter * if(winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "}}}
-
+"typescript-vim{{{
+  let g:typescript_indent_disable = 1
+"}}}
 "OSごとの設定
 if system("uname")=="Linux\n"
     "Linux

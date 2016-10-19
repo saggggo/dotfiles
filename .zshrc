@@ -47,6 +47,12 @@ alias pstree='pstree -p'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias pgrep='pgrep -l'
+alias g='git'
+alias gi='git'
+cdls(){
+    \cd "$@" && ls
+}
+alias cd="cdls"
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
