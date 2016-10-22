@@ -1,10 +1,22 @@
-!CapsLookの解除
+remove lock = Caps_Lock
 remove lock = Eisu_toggle
 remove control = Control_L
+remove control = Control_R
+remove mod1 = Alt_L
+remove mod1 = Alt_R
+remove shift = Shift_R
 
-!Caps_Lockにcontrolを割り当て
 keycode 66 = Control_L
 keycode 49 = Escape
-keycode 102 = Zenkaku_Hankaku
+keycode 62 = Control_R
+keycode 100 = Alt_R
+keycode 101 = Zenkaku_Hankaku
+keycode 102 = Alt_L
+! Ctrl_R => Touchpad toggle key
+keycode 105 = F13
 
-add control = Control_L 
+
+add control = Control_L
+add control = Control_R
+add mod1 = Alt_L
+add mod1 = Alt_R
