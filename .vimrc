@@ -75,13 +75,13 @@ set hlsearch
 "tab幅の設定
 set tabstop=2
 
+"TabをSpaceにする
+set expandtab
+
 set smartindent
 
 "カソール位置を中央に保つ
 set scrolloff=10
-
-"TabをSpaceにする
-set expandtab
 
 "不可視文字の可視化{{{
   set list
