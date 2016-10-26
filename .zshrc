@@ -18,6 +18,7 @@ setopt ignore_eof
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
+bindkey "^H" kill-word
 
 #履歴ファイル設定{{{
   # Keep 100000 lines of history within the shell and save it to ~/.zsh_history:
@@ -47,6 +48,13 @@ alias pstree='pstree -p'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias pgrep='pgrep -l'
+alias g='git'
+alias gi='git'
+alias gst="git status"
+cdls(){
+    \cd "$@" && ls
+}
+alias cd="cdls"
 
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
