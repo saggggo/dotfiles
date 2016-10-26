@@ -1,4 +1,13 @@
 "*":
+  core:
+    disabledPackages: [
+      "ide-haskell"
+      "ide-haskell-hasktags"
+      "japanese-menu"
+      "minimap"
+    ]
+  editor:
+    fontSize: 16
   "exception-reporting":
     userId: "f8c095e5-4ad5-8ec3-be60-348669f44d4b"
   minimap:
