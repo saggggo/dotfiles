@@ -1,22 +1,22 @@
 # Set up the prompt
 #shellscriptでは読み込まれないことに注意！
 
-#文字コードUTF-8
+#環境変数
 export LANG=ja_JP.UTF-8
-#コマンドのスペルミスを指摘
-setopt correct
+export EDITOR=vim
+export PATH=$PATH:~/bin
+
 #補完
-#コマンド特有の補完
+setopt correct
 autoload -Uz promptinit
 promptinit
 prompt adam1
-
 setopt histignorealldups sharehistory
 
 #ctrl+d(EOF)が入力されてもターミナルを閉じない
 setopt ignore_eof 
 
-# Use emacs keybindings even if our EDITOR is set to vi
+# custom keybind
 bindkey -e
 bindkey "^H" kill-word
 
@@ -73,7 +73,8 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-export PATH=$PATH:~/bin
+
+# local settings auto import 
 if [ -f $HOME/.zshrc.local ];then
     source $HOME/.zshrc.local
 fi

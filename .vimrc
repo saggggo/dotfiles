@@ -140,6 +140,7 @@ set shiftwidth=4
 "typescript-vim{{{
   let g:typescript_indent_disable = 1
 "}}}
+
 "OSごとの設定
 if system("uname")=="Linux\n"
     "Linux
