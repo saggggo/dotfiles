@@ -1,0 +1,19 @@
+#custom alias
+alias pstree='pstree -p'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias pgrep='pgrep -l'
+alias g='git'
+alias gi='git'
+alias gst="git status"
+cdls(){
+    \cd "$@" && ls
+}
+alias cd="cdls"
+
+
+# bash default aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
