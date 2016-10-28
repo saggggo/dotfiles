@@ -95,13 +95,14 @@ bindsym $mod+a focus parent
 
 # Name the workspqces
 set $tag1 "1: main"
-set $tag2 "2: editor"
+set $tag2 "2: sub"
+set $tag3 "3: editor"
 set $tag10 "10: terminal"
 
 # switch to workspace
 bindsym $mod+1 workspace $tag1
 bindsym $mod+2 workspace $tag2
-bindsym $mod+3 workspace 3
+bindsym $mod+3 workspace $tag3
 bindsym $mod+4 workspace 4
 bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
@@ -113,7 +114,7 @@ bindsym $mod+0 workspace $tag10
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $tag1
 bindsym $mod+Shift+2 move container to workspace $tag2
-bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+3 move container to workspace $tag3
 bindsym $mod+Shift+4 move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
@@ -171,7 +172,7 @@ bar {
     		urgent_workspace   #aa0000 #990000 #ffffff
     	}
       position top
-      status_command i3status -c /home/ryota/.config/i3/i3status.conf
+      status_command i3status -c ~/.config/i3/i3status.conf
       tray_output primary
 }
 
@@ -198,4 +199,4 @@ bindsym F13 exec touchpadManager temp
 # startup script
 exec dex -ae i3 # execute .desktop file (specified i3)
 exec touchpadManager toggle
-exec --no-startup-id "i3-msg 'workspace 1: main; append_layout /home/ryota/.config/i3/workspace-1.json' && google-chrome"
+exec --no-startup-id "i3-msg 'workspace 1: main; append_layout ~/.config/i3/workspace-1.json' && google-chrome"

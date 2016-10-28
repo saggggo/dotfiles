@@ -44,8 +44,8 @@ bindkey "^H" kill-word
  compinit
 
 #custom alias
-if [ -f $HOME/.alias ]; then
-    import $HOME/.alias
+if [ -f $HOME/.aliases ]; then
+    source $HOME/.aliases
 fi
 
 zstyle ':completion:*' auto-description 'specify: %d'

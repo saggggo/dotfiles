@@ -1,0 +1,21 @@
+#!/bin/bash
+
+case "$1" in
+    paste)
+      #paste android device from clipboard
+        text=$(xsel --clipboard --output | sed -e "s/\ /\\\ /g" | sed -e "s/(/\\\(/g");
+        adb shell input text "$text"
+      ;;
+    debugkey)
+        #show debugkey info
+        keytool -list -v -keystore ~/.android/debug.keystore
+        ;;
+   list-devices)
+       adb devices
+       ;;
+    *)
+        echo "Usage: $0 {paste|debugkey|list-devices}"
+        exit 2
+esac
+
+exit 0
