@@ -194,7 +194,7 @@ bindsym $mod+Shift+e mode "$mode_system"
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle && amixer -q set Speaker unmute # For some reason it doesn't work if it only set master toggle
-bindsym F13 exec touchpadManager temp
+bindsym F13 exec touchpadManager toggle
 
 # startup script
 exec dex -ae i3 # execute .desktop file (specified i3)
