@@ -12,8 +12,8 @@ off(){
 
 status(){
     STATUS_MESSAGE=$(xinput list-props $DEVICE_ID | grep Enable)
-    STATUS=$(echo $STATUS_MESSAGE | rev | cut -c 1 | rev )
-    echo $STATUS_MESSAGE
+    STATUS=$(echo "$STATUS_MESSAGE" | rev | cut -c 1 | rev )
+    echo "$STATUS_MESSAGE"
 }
 
 case "$1" in
@@ -25,10 +25,10 @@ case "$1" in
         ;;
     toggle)
         status
-        if [ $STATUS = 0 ];then
+        if [ "$STATUS" = 0 ];then
             echo "touchpad on"
             on
-        elif [ $STATUS = 1 ];then
+        elif [ "$STATUS" = 1 ];then
             echo "touchpad off"
             off
         else
