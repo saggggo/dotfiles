@@ -2,6 +2,22 @@
 	name = sagggggo
 	email = k10700460@yahoo.co.jp
 [alias]
-    st = status
+    a  = add
+    ad = add
+    b  = branch -a
     br = branch -a
     ch = checkout
+    co = commit
+    d  = diff
+    df = diff
+    di = diff
+    f  = fetch
+    fe = fetch
+    l  = log
+    lg = log
+    pl = pull
+    rb = rebase
+    rs = reset
+    s  = status
+    sh = stash
+    st = status
