@@ -27,6 +27,13 @@ font pango:Monospace, FontAwesome 9
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
+#Disable window titlebars entirely
+for_window [class="^.*"] border pixel 3
+
+#i3-gaps
+gaps inner 10
+gaps outer 5
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -173,6 +180,7 @@ bar {
     		urgent_workspace   #aa0000 #990000 #ffffff
     	}
       position top
+      #i3bar_command i3bar -t
       status_command i3status -c ~/.config/i3/i3status.conf
       tray_output primary
 }
@@ -196,6 +204,10 @@ bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle && amixer -q set Speaker unmute # For some reason it doesn't work if it only set master toggle
 bindsym F13 exec touchpadManager toggle
+
+#assign the application to workspace
+assign [class="Atom"] $tag3
+assign [class="jetbrains-studio"] $tag4
 
 # startup script
 exec dex -ae i3 # execute .desktop file (specified i3)
