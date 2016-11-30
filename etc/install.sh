@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 PACKAGES=(ibus-mozc git vim zsh byobu atom i3 dex)
 
