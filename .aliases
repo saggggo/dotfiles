@@ -14,7 +14,7 @@ cdls(){
     \cd "$@" && ls
 }
 alias cd="cdls"
-
+alias aws-lambda="python-lambda-local"
 
 # bash default aliases
 alias ll='ls -alF'
