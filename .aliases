@@ -20,6 +20,10 @@
   alias cd="cdls"
 #}}}
 
+#apt{{{
+  alias apts="apt search"
+  alias apti="sudo apt-get install"
+#}}}
 alias aws-lambda="python-lambda-local"
 alias srl="serverless"
 alias pstree='pstree -p'
