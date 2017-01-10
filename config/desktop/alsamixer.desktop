@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Terminal=true
+Encoding=UTF-8
+Type=Application
+Name=alsamixer
+Exec=alsamixer
