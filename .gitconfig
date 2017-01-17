@@ -1,6 +1,5 @@
-[user]
-	name = sagggggo
-	email = k10700460@yahoo.co.jp
+[include]
+    path = .gitconfig.local
 [alias]
     a  = add
     ad = add
@@ -19,5 +18,5 @@
     rb = rebase
     rs = reset
     s  = status
-    sh = stash
     st = status
+    sh = stash

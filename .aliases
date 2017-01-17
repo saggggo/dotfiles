@@ -1,4 +1,5 @@
 #custom alias
+alias pwgen='pwgen -s -y 12 3'
 
 #vim{{{
   alias v="vim"
