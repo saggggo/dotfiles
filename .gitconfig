@@ -1,3 +1,7 @@
+[core]
+    editor = vim
+[color]
+    ui = true
 [include]
     path = .gitconfig.local
 [alias]
