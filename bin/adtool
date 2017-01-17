@@ -8,23 +8,8 @@ case "$1" in
       ;;
     debugkey)
         #show debugkey info
-        read -sp "Password: " pass
-        
-        expect -c "
-          set timeout 30
-          spawn env HOME=\"/home/ryota\" keytool -list -v -keystore ${HOME}/.android/debug.keystore
-          expect \"キーストアのパスワードを入力してください:\"
-          send \"${pass}\"
-          exit 0;
-        "
-        expect -c "
-          set timeout 30
-          spawn keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64
-          expect \"キーストアのパスワードを入力してください:\"
-          send \"${pass}\"
-          expect \"$\"
-          exit 0
-        "
+        keytool -list -v -keystore ~/.android/debug.keystore
+        keytool -exportcert -alias androiddebugkey -keystore $HOME/.android/debug.keystore | openssl sha1 -binary | openssl base64
         ;;
    list-devices)
        adb devices

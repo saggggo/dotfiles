@@ -16,8 +16,8 @@
     di = diff
     f  = fetch
     fe = fetch
-    l  = log
-    lg = log
+    l  = log --oneline
+    lg = log --oneline
     pl = pull
     rb = rebase
     rs = reset
