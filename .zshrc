@@ -1,42 +1,40 @@
 # Set up the prompt
-#shellscriptでは読み込まれないことに注意！
+# shellscript don't read this file
 
-#環境変数
-export LANG=ja_JP.UTF-8
 export EDITOR=vim
 export PATH=$PATH:~/bin
 
-#補完
+#autocomplete
 setopt correct
 autoload -Uz promptinit
 promptinit
 prompt adam1
 setopt histignorealldups sharehistory
 
-#ctrl+d(EOF)が入力されてもターミナルを閉じない
+#invalid ctrl+d
 setopt ignore_eof 
 
 # custom keybind
 bindkey -e
 bindkey "^H" kill-word
 
-#履歴ファイル設定{{{
+#histfile{{{
   # Keep 100000 lines of history within the shell and save it to ~/.zsh_history:
   HISTFILE=~/.zsh_history
   HISTSIZE=100000
   SAVEHIST=100000
-  #rootなら履歴を残さない
+  #when you are root, you don't write command histry
   if [ $UID = 0 ]; then
       unset HISTFILE
       SAVEHIST=0
   fi
   #ignore duplication command history list
   setopt hist_ignore_dups
-  #履歴を複数の端末で共有
+  #share histfile many terminal
   setopt share_history
-  #重複するコマンドは古い方を削除
+  #when command histry was overlapped, remove old command
   setopt hist_ignore_all_dups
-  #複数のzshを同時に使用した際に履歴ファイルを上書きせず追加する
+  #not override, append
   setopt append_history
 #}}}
  # Use modern completion system
@@ -66,7 +64,7 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# local settings auto import 
+#auto import local settings 
 if [ -f $HOME/.zshrc.local ];then
     source $HOME/.zshrc.local
 fi

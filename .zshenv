@@ -1,2 +1,5 @@
-#zshenv -> zprofile -> zshrc の順に読み込まれるa
-#shellscriptにも読み込まれる
+#shellscript read this file
+#zshenv -> zprofile -> zshrc 
+
+#environment
+export LANG=ja_JP.UTF-8
