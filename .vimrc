@@ -16,13 +16,19 @@ if has('vim_starting')
     PlugInstall
   end
 endif
+
 "let's run PlugInstall !
 call plug#begin('~/.vim/plugged')
   "color schema{{{
-    "Plug 'https://github.com/w0ng/vim-hybrid'
+    Plug 'https://github.com/w0ng/vim-hybrid'
     Plug 'https://github.com/nanotech/jellybeans.vim'
-    "Plug 'tomasr/molokai'
+    Plug 'https://github.com/sukima/xmledit'
+    Plug 'https://github.com/freeo/vim-kalisi'
+    Plug 'https://github.com/ctrlpvim/ctrlp'
+    Plug 'https://github.com/majutsushi/tagbar'
+    Plug 'tomasr/molokai'
   "}}}
+  Plug 'mhinz/vim-startify'
   Plug 'scrooloose/nerdtree'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'leafgarland/typescript-vim'
@@ -36,7 +42,8 @@ scriptencoding utf-8
 syntax on
 
 "colorschemeの設定
-colorscheme jellybeans
+set background=dark
+colorscheme hybrid
 
 "括弧入力時に対応する括弧を表示
 set showmatch
@@ -126,6 +133,7 @@ set shiftwidth=4
   xnoremap <Up> gk
 "}}}
 
+nmap <F8> :TagbarToggle<CR>
 "マップ定義{{{
   "map <F2> <ESC>:tabprevious<CR>
   "map <F3> <ESC>:tabnext<CR>
