@@ -20,7 +20,7 @@ bindkey "^H" kill-word
 
 #histfile{{{
   # Keep 100000 lines of history within the shell and save it to ~/.zsh_history:
-  HISTFILE=~/.zsh_history
+  HISTFILE=~/.history
   HISTSIZE=100000
   SAVEHIST=100000
   #when you are root, you don't write command histry
@@ -36,6 +36,8 @@ bindkey "^H" kill-word
   setopt hist_ignore_all_dups
   #not override, append
   setopt append_history
+  #don't add timestamp to histfile
+  unsetopt EXTENDED_HISTORY
 #}}}
  # Use modern completion system
  autoload -Uz compinit
