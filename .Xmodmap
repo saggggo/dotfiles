@@ -7,12 +7,11 @@ remove mod4 = Super_L
 
 keycode 49 = Escape
 keycode 66 = Control_L
-keycode 101 = Zenkaku_Hankaku
-keycode 100 = Control_R
+keycode 100 = Zenkaku_Hankaku
+keycode 101 = F14
 keycode 102 = Super_L
 ! Ctrl_R => Touchpad toggle key
 keycode 105 = F13
-
 
 add mod4 = Super_L
 add control = Control_L
