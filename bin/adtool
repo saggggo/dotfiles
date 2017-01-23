@@ -9,6 +9,7 @@ case "$1" in
     debugkey)
         #show debugkey info
         keytool -list -v -keystore ~/.android/debug.keystore
+        keytool -exportcert -alias androiddebugkey -keystore $HOME/.android/debug.keystore | openssl sha1 -binary | openssl base64
         ;;
    list-devices)
        adb devices
@@ -19,3 +20,4 @@ case "$1" in
 esac
 
 exit 0
+

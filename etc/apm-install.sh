@@ -1,3 +1,3 @@
 #!/bin/bash
 
-apm install --package-file $HOME/dotfiles/atom/atom-packages
+apm install --packages-file $HOME/dotfiles/atom/atom-packages
