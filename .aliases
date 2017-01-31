@@ -1,38 +1,40 @@
-#custom alias
-alias pwgen='pwgen -s -y 12 3'
-
-#vim{{{
+# bash default aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias lr="tree"
+#vim
   alias v="vim"
   alias vi="vim"
-#}}}
 
-#git{{{
+#git
   alias g='git'
   alias gi='git'
   alias gadd='git add'
   alias gst="git status"
   alias gbr="git branch -a"
-#}}}
 
-#cd{{{
+#cd
   cdls(){
       \cd "$@" && ls
   }
   alias cd="cdls"
-#}}}
 
-#apt{{{
+#apt
   alias apts="apt search"
   alias apti="sudo apt-get install"
-#}}}
+
+#haskell
+alias ghc="stack ghc"
+alias ghci="stack ghci"
+alias runghc="stack runghc"
+alias runhaskell="stack runghc"
+
+#custom alias
+alias pwgen='pwgen -s -y 12 3'
 alias aws-lambda="python-lambda-local"
 alias srl="serverless"
 alias pstree='pstree -p'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias pgrep='pgrep -l'
-
-# bash default aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'

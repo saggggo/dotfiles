@@ -1,18 +1,15 @@
 # Set up the prompt
 # shellscript don't read this file
 
-export EDITOR=vim
-export PATH=$PATH:~/bin
-
 #autocomplete
 setopt correct
 autoload -Uz promptinit
 promptinit
 prompt adam1
-setopt histignorealldups sharehistory
+setopt histignorealldups
 
 #invalid ctrl+d
-setopt ignore_eof 
+#setopt ignore_eof 
 
 # custom keybind
 bindkey -e
