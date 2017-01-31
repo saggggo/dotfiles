@@ -26,9 +26,11 @@ call plug#begin('~/.vim/plugged')
     Plug 'https://github.com/freeo/vim-kalisi'
     Plug 'https://github.com/ctrlpvim/ctrlp'
     Plug 'https://github.com/majutsushi/tagbar'
+    Plug 'https://github.com/gosukiwi/vim-atom-dark'
     Plug 'tomasr/molokai'
   "}}}
   Plug 'mhinz/vim-startify'
+  Plug 'https://github.com/powerline/powerline'
   Plug 'scrooloose/nerdtree'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'leafgarland/typescript-vim'
@@ -42,8 +44,9 @@ scriptencoding utf-8
 syntax on
 
 "colorschemeの設定
-set background=dark
-colorscheme hybrid
+"set background=dark
+set t_Co=256
+colorscheme atom-dark-256
 
 "括弧入力時に対応する括弧を表示
 set showmatch
@@ -80,7 +83,7 @@ set mouse=a
 set hlsearch
 
 "tab幅の設定
-set tabstop=2
+set tabstop=4
 
 "TabをSpaceにする
 set expandtab
@@ -159,3 +162,4 @@ elseif has("win32")
   "ディレクトリパスの指定に/を使えるようにする
   set shellslash
 endif
+
