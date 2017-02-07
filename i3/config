@@ -105,6 +105,8 @@ set $tag1 "1: main"
 set $tag2 "2: sub"
 set $tag3 "3: editor"
 set $tag4 "4: android"
+set $tag7 "7: utility"
+set $tag9 "9: floating"
 set $tag10 "10: terminal"
 
 # switch to workspace
@@ -114,9 +116,9 @@ bindsym $mod+3 workspace $tag3
 bindsym $mod+4 workspace $tag4
 bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
+bindsym $mod+7 workspace $tag7
 bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
+bindsym $mod+9 workspace $tag9
 bindsym $mod+0 workspace $tag10
 
 # move focused container to workspace
@@ -126,9 +128,9 @@ bindsym $mod+Shift+3 move container to workspace $tag3
 bindsym $mod+Shift+4 move container to workspace $tag4
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+7 move container to workspace $tag7
 bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+9 move container to workspace $tag9
 bindsym $mod+Shift+0 move container to workspace $tag10
 
 # reload the configuration file
@@ -208,8 +210,11 @@ bindsym F13 exec touchpadManager toggle
 #assign the application to workspace
 assign [class="Atom"] $tag3
 assign [class="jetbrains-studio"] $tag4
-
+assign [class="Thunderbird"] $tag7
+assign [class="1Password.exe"] $tag7
+for_window [title="ALSA Mixer"] floating enable
+for_window [workspace=$tag9] floating enable
 # startup script
 exec dex -ae i3 # execute .desktop file (specified i3)
 exec touchpadManager toggle
-exec --no-startup-id "i3-msg 'workspace 1: main; append_layout ~/.config/i3/workspace-1.json' && google-chrome"
+exec --no-startup-id "i3-msg 'workspace 1: main; append_layout ~/.config/i3/workspace-1.json'"
