@@ -1,5 +1,5 @@
 # Set up the prompt
-# shellscript don't read this file
+# shellscript don't read this
 
 #autocomplete
 setopt correct
