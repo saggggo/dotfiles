@@ -1,0 +1,5 @@
+#!/bin/bash
+
+PROJECTDIR=`git rev-parse --show-toplevel`
+
+apm install --packages-file $PROJECTDIR/atom/atom-packages

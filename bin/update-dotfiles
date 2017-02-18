@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DOTPATH=$HOME/dotfiles
+
+cd $DOTPATH
+git add . && git commit -m "dotfiles update automatically" && git push origin master
