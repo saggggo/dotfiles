@@ -1,4 +1,6 @@
 #!/bin/bash
+echo "------pre-commit------"
+
 PROJECTDIR=`git rev-parse --show-toplevel`
 
 if git rev-parse --verify HEAD >/dev/null 2>&1
@@ -18,3 +20,5 @@ git diff-index --check --cached $against
 echo "atom package list update...."
 apm list -i -b > $PROJECTDIR/atom/atom-packages
 git add $PROJECTDIR/atom/atom-packages
+
+echo "----------end---------"
