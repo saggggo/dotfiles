@@ -1,0 +1,8 @@
+#!/bin/bash
+
+remote="$1"
+url="$2"
+
+echo "-------pre-push-------"
+echo "$1:$2"
+echo "---------end----------"
