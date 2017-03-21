@@ -67,3 +67,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 if [ -f $HOME/.zshrc.local ];then
     source $HOME/.zshrc.local
 fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/ryota/.sdkman"
+[[ -s "/home/ryota/.sdkman/bin/sdkman-init.sh" ]] && source "/home/ryota/.sdkman/bin/sdkman-init.sh"
