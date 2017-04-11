@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 lock() {
-    i3lock
+    imagePath=$HOME/Dropbox/background
+    images=($imagePath/*.png)
+    i3lock -i ${images[${RANDOM} % ${#images[@]}]} -t
 }
 
 case "$1" in
