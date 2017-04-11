@@ -218,3 +218,4 @@ for_window [workspace=$tag9] floating enable
 exec dex -ae i3 # execute .desktop file (specified i3)
 exec touchpadManager toggle
 exec --no-startup-id "i3-msg 'workspace 1: main; append_layout ~/.config/i3/workspace-1.json'"
+exec xautolock -time 1 -locker "i3exit lock"
