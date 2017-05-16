@@ -16,8 +16,9 @@
     di = diff
     f  = fetch
     fe = fetch
-    l  = log --oneline
-    lg = log --oneline
+    l  = log --graph --oneline --decorate=full
+    lg = log --graph --oneline --decorate=full
+    log = log --graph --oneline --decorate=full
     pl = pull
     rb = rebase
     rs = reset
