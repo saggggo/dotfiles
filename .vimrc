@@ -83,7 +83,8 @@ set mouse=a
 set hlsearch
 
 "tab幅の設定
-set tabstop=4
+set tabstop=2
+set shiftwidth=0
 
 "TabをSpaceにする
 set expandtab
@@ -112,7 +113,6 @@ set nowrapscan
 if has('unnamedplus')
   set clipboard=unnamedplus
 endif
-set shiftwidth=4
 
 "C-a, C-e で行頭行末に移動{{{
   inoremap <C-a> <ESC>^i
