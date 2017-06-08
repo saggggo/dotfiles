@@ -77,7 +77,7 @@
   "exception-reporting":
     userId: "1eb74960-cfb3-4519-bfe2-521eb1ae035b"
   "ide-haskell-hasktags":
-    hasktagsPath: "/home/sago/.local/bin/hasktags"
+    hasktagsPath: "$HOME/.local/bin/hasktags"
   linter:
     errorPanelHeight: 22
   "linter-php": {}
