@@ -4,6 +4,7 @@
 #autocomplete
 setopt correct
 autoload -Uz promptinit
+autoload colors && colors
 promptinit
 prompt adam1
 setopt histignorealldups

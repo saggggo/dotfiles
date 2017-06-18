@@ -3,40 +3,6 @@ filetype plugin indent on
 "vi互換機能を無効化
 if ! &compatible | set nocompatible | endif
 
-"pluginの管理
-"---------------------vim-plug  ------------------------------------------------
-"vim-plugがなかったら自動でインストール
-if has('vim_starting')
-  if !filereadable(expand('~/.vim/autoload/vim-plug/plug.vim'))
-    echo 'install vim-plug...'
-    call system('mkdir -p ~/.vim/autoload/vim-plug')
-    call system('git clone https://github.com/junegunn/vim-plug.git ~/.vim/autoload/vim-plug/')
-    call system('cp .vim/autoload/vim-plug/plug.vim .vim/autoload/')
-    source ~/.vimrc
-    PlugInstall
-  end
-endif
-
-"let's run PlugInstall !
-call plug#begin('~/.vim/plugged')
-  "color schema{{{
-    Plug 'https://github.com/w0ng/vim-hybrid'
-    Plug 'https://github.com/nanotech/jellybeans.vim'
-    Plug 'https://github.com/sukima/xmledit'
-    Plug 'https://github.com/freeo/vim-kalisi'
-    Plug 'https://github.com/ctrlpvim/ctrlp'
-    Plug 'https://github.com/majutsushi/tagbar'
-    Plug 'https://github.com/gosukiwi/vim-atom-dark'
-    Plug 'tomasr/molokai'
-  "}}}
-  Plug 'mhinz/vim-startify'
-  Plug 'https://github.com/powerline/powerline'
-  Plug 'scrooloose/nerdtree'
-  Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'leafgarland/typescript-vim'
-call plug#end()
-"---------------------------------------------------------------------------
-
 "文字コード設定
 scriptencoding utf-8
 
@@ -45,8 +11,8 @@ syntax on
 
 "colorschemeの設定
 "set background=dark
-set t_Co=256
-colorscheme atom-dark-256
+"set t_Co=256
+"colorscheme atom-dark-256
 
 "括弧入力時に対応する括弧を表示
 set showmatch
@@ -162,4 +128,3 @@ elseif has("win32")
   "ディレクトリパスの指定に/を使えるようにする
   set shellslash
 endif
-

@@ -2,6 +2,16 @@
 #zshenv -> zprofile -> zshrc 
 
 #environment
-export EDITOR=vim
 export LANG=ja_JP.UTF-8
+if type nvim >/dev/null; then
+  export EDITOR="nvim"
+else
+  export EDITOR="vim"
+fi
+
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=/tmp/$USER/.cache
+if [[ -d $HOME/dotfiles ]]; then
+  export DOTPATH=$HOME/dotfiles
+fi
