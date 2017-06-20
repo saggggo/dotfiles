@@ -18,6 +18,8 @@ git diff-index --check --cached $against
 
 ##Custom Config
 echo "atom package list update...."
+
+apm upgrade
 apm list -i -b > $PROJECTDIR/atom/atom-packages
 git add $PROJECTDIR/atom/atom-packages
 
