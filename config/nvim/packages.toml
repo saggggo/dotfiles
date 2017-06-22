@@ -79,7 +79,7 @@ hook_add='''
   vnoremap <C-n> :NERDTreeToggle<CR>
   inoremap <C-n> :NERDTreeToggle<CR>
   cnoremap <C-n> :NERDTreeToggle<CR>
-  au MyAutoCmd VimEnter * NERDTree
+  "au MyAutoCmd VimEnter * NERDTree
 '''
 
 ##設定がうまくいかないので保留
