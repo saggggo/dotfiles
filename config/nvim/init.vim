@@ -97,7 +97,7 @@ set hlsearch
 set nowrapscan
 
 "tab幅の設定{{{
-  set tabstop=2
+  set tabstop=4
   set shiftwidth=0
 "}}}
 
@@ -132,6 +132,14 @@ set scrolloff=10
 
 "clipboardにアクセス
 set clipboard+=unnamedplus
+
+"カラムライン
+set colorcolumn=80
+
+"スペルチェック
+"set spell
+"set spelllang=en,cjk
+
 
 "netrw{{{
   ""常にtreeview

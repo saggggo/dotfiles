@@ -66,20 +66,23 @@ hook_add = '''
   let g:jsx_ext_required = 0
 '''
 
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add='''
+  let g:NERDTreeAutoCenter=1
+  let g:NERDTreeShowBookmarks=1
+  let g:NERDTreeWinSize=25
+  let g:NERDTreeShowHidden=0 "隠しフォルダは表示しない
+  let  NERDTreeIgnore =
+    \ ['\.pyc', '\.git$', '\^~$', '\node_modules', '\.DS_Store']
+  nnoremap <C-n> :NERDTreeToggle<CR>
+  vnoremap <C-n> :NERDTreeToggle<CR>
+  inoremap <C-n> :NERDTreeToggle<CR>
+  cnoremap <C-n> :NERDTreeToggle<CR>
+  au MyAutoCmd VimEnter * NERDTree
+'''
 
 ##設定がうまくいかないので保留
-#[[plugins]]
-#repo = 'scrooloose/nerdtree'
-#hook_add='''
-#  let g:NERDTreeAutoCenter=1
-#  let g:NERDTreeShowBookmarks=1
-#  let g:NERDTreeWinSize=25
-#  let g:NERDTreeShowHidden=0 "隠しフォルダは表示しない
-#  let  NERDTreeIgnore =
-#    \ ['\.pyc', '\.git$', '\^~$', '\node_modules', '\.DS_Store']
-#  "au MyAutoCmd VimEnter * NERDTree
-#'''
-#
 #[[plugins]]
 #repo = 'ryanoasis/vim-devicons'
 #depends = ['scrooloose/nerdtree']

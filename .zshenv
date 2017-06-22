@@ -11,7 +11,7 @@ fi
 
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin
 export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=/tmp/$USER/.cache
+export XDG_CACHE_HOME=$HOME/.cache
 if [[ -d $HOME/dotfiles ]]; then
   export DOTPATH=$HOME/dotfiles
 fi
