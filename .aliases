@@ -46,3 +46,12 @@ alias sshconf='cat $HOME/.ssh/config'
 alias gg='git grep'
 alias vimalias='vim ~/.aliases'
 alias getIP='curl ip.mtak.nl'
+
+#docker
+docker() {
+    if [[ $1 == "update" ]];then
+        command docker images | grep -v REPOSITORY |awk '{print $1}' | xargs -L1 docker pull
+    else
+        command docker $@
+    fi
+}

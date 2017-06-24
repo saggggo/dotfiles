@@ -157,8 +157,8 @@ set hidden
 
 "bufferの移動
 nnoremap  <F2>    :bp<cr>
+onoremap  <F2>    :bp<cr>
+xnoremap  <F2>    :bp<cr>
 nnoremap  <F3>    :bn<cr>
-vnoremap  <F2>    :bp<cr>
-vnoremap  <F3>    :bn<cr>
-inoremap  <F2>    :bp<cr>
-inoremap  <F3>    :bp<cr>
+onoremap  <F3>    :bn<cr>
+xnoremap  <F3>    :bn<cr>

@@ -1,4 +1,5 @@
-[[plugins]]
+:changes
+
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
@@ -76,9 +77,8 @@ hook_add='''
   let  NERDTreeIgnore =
     \ ['\.pyc', '\.git$', '\^~$', '\node_modules', '\.DS_Store']
   nnoremap <C-n> :NERDTreeToggle<CR>
-  vnoremap <C-n> :NERDTreeToggle<CR>
-  inoremap <C-n> :NERDTreeToggle<CR>
-  cnoremap <C-n> :NERDTreeToggle<CR>
+  onoremap <C-n> :NERDTreeToggle<CR>
+  xnoremap <C-n> :NERDTreeToggle<CR>
   "au MyAutoCmd VimEnter * NERDTree
 '''
 
@@ -109,9 +109,16 @@ hook_add='''
 #    \ }
 #'''
 
+#gitラッパー Gstatusとか
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 
+#行数の横にgitの+とかを表示するやつ
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+hook_add='''
+    noremap <C-p> :Denite buffer file_rec <Enter>
+'''
