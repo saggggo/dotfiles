@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 echo "------pre-commit------"
 
 PROJECTDIR=`git rev-parse --show-toplevel`
@@ -23,4 +23,5 @@ apm upgrade -c=false
 apm list -i -b > $PROJECTDIR/config/atom/atom-packages
 git add $PROJECTDIR/config/atom/atom-packages
 
+git secrets --pre_commit_hook -- "$@"
 echo "----------end---------"
