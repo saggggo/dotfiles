@@ -15,3 +15,6 @@ export XDG_CACHE_HOME=$HOME/.cache
 if [[ -d $HOME/dotfiles ]]; then
   export DOTPATH=$HOME/dotfiles
 fi
+
+## gpu acceraration
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64/

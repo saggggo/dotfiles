@@ -92,7 +92,10 @@
     toggles:
       autoClose: true
   "tree-view": {}
-  "vim-mode": {}
+  "vim-mode":
+    useClipboardAsDefaultRegister: true
+  "vim-mode-plus-ex-mode":
+    notifiedUseExMode: true
   welcome:
     showOnStartup: false
   "xml-formatter": {}

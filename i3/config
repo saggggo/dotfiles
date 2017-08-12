@@ -28,7 +28,7 @@ font pango:Monospace, FontAwesome 9
 # font, it doesn’t scale on retina/hidpi displays.
 
 #Disable window titlebars entirely
-for_window [class="^.*"] border pixel 3
+for_window [class="^.*"] border pixel 0
 
 #i3-gaps
 #gaps inner 10
@@ -38,7 +38,7 @@ for_window [class="^.*"] border pixel 3
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xterm
+bindsym $mod+Return exec gnome-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -229,3 +229,4 @@ exec dex -ae i3 # execute .desktop file (specified i3)
 exec touchpadManager toggle
 exec --no-startup-id "i3-msg 'workspace 1: main; append_layout ~/.config/i3/workspace-1.json'"
 exec xautolock -time 10 -locker "i3exit lock"
+exec --no-startup-id "compton --config $HOME/.config/compton.conf"
