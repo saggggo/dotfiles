@@ -3,4 +3,4 @@
 DOTPATH=$HOME/dotfiles
 
 cd $DOTPATH
-git add . && git commit -m "dotfiles update automatically" && git push origin master
+git add . && git commit -m "auto update" && git push origin master

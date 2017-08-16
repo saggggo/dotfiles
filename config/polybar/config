@@ -21,7 +21,7 @@ alert = #bd2c40
 skyblue = #80D9FF
 
 [bar/mainbar]
-monitor = ${env:MONITOR:HDMI-1}
+monitor = ${env:MONITOR:DVI-D-0}
 width = 1818
 height = 27
 offset-x = 51
@@ -45,118 +45,92 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = fixed:pixelsize=10;1
-font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
-font-2 = siji:pixelsize=10;1
+font-0 = "Takao Pゴシック:pixelsize=10;1"
+font-1 = "FontAwesome:pixelsize=12;1"
+#font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+#font-2 = siji:pixelsize=10;1
 
-modules-left = xworkspaces
+modules-left = 
 modules-center = xwindow
-modules-right = filesystem xbacklight xkeyboard memory cpu battery temperature date powermenu
-
+modules-right = volume filesystem xbacklight cpu memory battery temperature date
 tray-position = right
-tray-padding = 2
+tray-padding = 1
+;tray-offset-x = -5
 ;tray-transparent = true
 ;tray-background = #0063ff
 
-;wm-restack = bspwm
-;wm-restack = i3
+[bar/subbar]
+monitor = ${env:MONITOR:HDMI-0}
+width = 1818
+height = 27
+offset-x = 51
+offset-y = 9
+radius = 3.0
+fixed-center = true
+dim-value = 0.7
 
-;override-redirect = true
+background = ${colors.background}
+foreground = ${colors.foreground}
 
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
+line-size = 3
+line-color = #f00
 
-;scroll-up = i3wm-wsnext
-;scroll-down = i3wm-wsprev
+border-size = 0
+border-color = #00000000
 
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = Takao Pゴシック:pixelsize=10;1
+font-1 = FontAwesome:size=11:weight=Regular
+#font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+#font-2 = siji:pixelsize=10;1
+
+modules-left = xworkspaces
+modules-center = xwindow
+modules-right = filesystem xbacklight cpu memory battery temperature date powermenu
 [module/xworkspaces]
 type = internal/xworkspaces
 
-; Only show workspaces defined on the same output as the bar
-;
-; Useful if you want to show monitor specific workspaces
-; on different bars
-;
-; Default: false
+icon-1 = Main;
+icon-2 = Sub;
+#editor
+icon-3 = Editor;
+#android
+icon-4 = Android;
+#windows
+icon-5 = VM1;
+icon-6 = VM2;
+icon-7 = etc1;
+icon-8 = etc2;
+icon-9 = Float;
+icon-0 = Terminal;
+icon-default = 
+
 pin-workspaces = false
-
-; Create click handler used to focus desktop
-; Default: true
 enable-click = true
-
-; Create scroll handlers used to cycle desktops
-; Default: true
 enable-scroll = false
-; icon-[0-9]+ = <desktop-name>;<icon>
-; NOTE: The desktop name needs to match the name configured by the WM
-; You can get a list of the defined desktops using:
-; $ xprop -root _NET_DESKTOP_NAMES
 
-; Available tags:
-;   <label-monitor>
-;   <label-state> - gets replaced with <label-(active|urgent|occupied|empty)>
-; Default: <label-state>
 format = <label-state>
-
-; Available tokens:
-;   %name%
-; Default: %name%
-label-monitor = %name%
-
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
-label-active = %icon% %name%
+label-monitor =  %name%
+label-active = " %icon% : %name%"
 label-active-foreground = #ffffff
 label-active-background = #3f3f3f
 label-active-underline = ${colors.skyblue}
-
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
-label-occupied = %icon%
-label-occupied-underline = #555555
-
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
-label-urgent = %icon%
-label-urgent-foreground = #000000
-label-urgent-background = #bd2c40
-label-urgent-underline = #9b0a20
-
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
-label-empty = %icon% %name%
+#label-occupied = %icon% %name%
+#label-occupied-underline = #555555
+#label-urgent = %icon% %name%
+#label-urgent-foreground = #000000
+#label-urgent-background = #bd2c40
+#label-urgent-underline = #9b0a20
+label-empty = "  %icon% "
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:30:...%
-
-[module/xkeyboard]
-type = internal/xkeyboard
-blacklist-0 = num lock
-
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
-format-prefix-underline = ${colors.secondary}
-
-label-layout = %layout%
-label-layout-underline = ${colors.secondary}
-
-label-indicator-padding = 2
-label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.secondary}
+label = %title:0:50:...%
 
 [module/filesystem]
 type = internal/fs
@@ -164,7 +138,7 @@ interval = 25
 
 mount-0 = /
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %free%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -206,18 +180,18 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #f90000
-label = %percentage%%
+label =CPU: %percentage%%
+format =<label>
 
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #4bffdc
-label = %percentage_used%%
+label = RAM: %percentage_used%%
+format = <label>
 
 [module/wlan]
 type = internal/network
@@ -259,12 +233,12 @@ format-disconnected =
 
 [module/date]
 type = internal/date
-interval = 5
+interval = 1
 
 date =
 date-alt = " %Y-%m-%d"
 
-time = %H:%M
+time = %H:%M:%S
 time-alt = %H:%M:%S
 
 format-prefix = 
@@ -275,6 +249,12 @@ label = %date% %time%
 
 [module/volume]
 type = internal/volume
+
+master-soundcard = USB Audio Device
+speaker-soundcard = USB Audio Device
+headphone-soundcard = USB Audio Device
+
+master-mixer = Master
 
 format-volume = <label-volume> <bar-volume>
 label-volume = VOL
@@ -317,14 +297,19 @@ format-full-prefix = " "
 format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+bar-capacity-width = 10
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 
@@ -352,7 +337,7 @@ type = custom/menu
 
 format-spacing = 1
 
-label-open = 
+label-open = 
 label-open-foreground = ${colors.secondary}
 label-close =  cancel
 label-close-foreground = ${colors.secondary}
@@ -367,10 +352,10 @@ menu-0-1-exec = menu-open-2
 menu-1-0 = cancel
 menu-1-0-exec = menu-open-0
 menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
+menu-1-1-exec = reboot
 
 menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
+menu-2-0-exec = poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
