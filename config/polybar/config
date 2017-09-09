@@ -21,7 +21,7 @@ alert = #bd2c40
 skyblue = #80D9FF
 
 [bar/mainbar]
-monitor = ${env:MONITOR:DVI-D-0}
+monitor = ${env:MONITOR:HDMI-1}
 width = 1818
 height = 27
 offset-x = 51
@@ -50,7 +50,7 @@ font-1 = "FontAwesome:pixelsize=12;1"
 #font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 #font-2 = siji:pixelsize=10;1
 
-modules-left = 
+modules-left = xworkspaces
 modules-center = xwindow
 modules-right = volume filesystem xbacklight cpu memory battery temperature date
 tray-position = right
@@ -60,7 +60,7 @@ tray-padding = 1
 ;tray-background = #0063ff
 
 [bar/subbar]
-monitor = ${env:MONITOR:HDMI-0}
+monitor = ${env:MONITOR:HDMI-2}
 width = 1818
 height = 27
 offset-x = 51
@@ -348,16 +348,30 @@ menu-0-0 = reboot
 menu-0-0-exec = menu-open-1
 menu-0-1 = power off
 menu-0-1-exec = menu-open-2
+menu-0-2 = suspend
+menu-0-2-exec = menu-open-3
+menu-0-3 = logout
+menu-0-3-exec = menu-open-4
 
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = reboot
+menu-1-0 = Yes
+menu-1-0-exec = reboot
+menu-1-1 = No
+menu-1-1-exec = menu-open-0
 
-menu-2-0 = power off
+menu-2-0 = Yes
 menu-2-0-exec = poweroff
-menu-2-1 = cancel
+menu-2-1 = No
 menu-2-1-exec = menu-open-0
+
+menu-3-0 = Yes
+menu-3-0-exec = i3exit lock && sudo pm-suspend
+menu-3-1 = No
+menu-3-1-exec = menu-open-0
+
+menu-4-0 = Yes
+menu-4-0-exec = herbstclient quit
+menu-4-1 = No
+menu-4-1-exec = menu-open-0
 
 [settings]
 screenchange-reload = true

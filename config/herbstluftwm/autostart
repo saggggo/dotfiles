@@ -139,6 +139,7 @@ hc set frame_padding 0
 hc set smart_window_surroundings 0
 hc set smart_frame_surroundings 0
 hc set mouse_recenter_gap 0
+hc set focus_follows_mouse 1
 
 # rules
 hc unrule -F
@@ -153,7 +154,7 @@ hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
 hc rule class='Gnome-screenshot' pseudotile=on
 hc rule class='Gnome-calculator' pseudotile=on
-
+hc role windowrole='pop-up' pseudotile=on
 # unlock, just to be sure
 hc unlock
 
@@ -179,8 +180,10 @@ hc pad 1 36 42 0 42
 #autostart script
 if ! pgrep -x polybar >/dev/null; then
     dex -ae herbstluftwm
-    polybar mainbar -r &
-    polybar subbar -r &
+    if [ `uname -n` = "ryota-Desktop" ]; then
+        polybar mainbar -r &
+        polybar subbar -r &
+    fi
 fi
 if ! pgrep -x compton >/dev/null; then
     compton --config $HOME/.config/compton.conf &

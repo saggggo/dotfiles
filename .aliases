@@ -18,7 +18,7 @@ alias lr="tree"
 
 #cd
   cdls(){
-      \cd "$@" && ls
+      \cd "$@" && ls --color=auto
   }
   alias cd="cdls"
 

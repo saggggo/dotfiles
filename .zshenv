@@ -1,8 +1,12 @@
 #shellscript read this file
 #zshenv -> zprofile -> zshrc 
 
+case $TERM in
+    linux)export LANG=C ;; #tty1-6
+    *)export LANG=ja_JP.UTF-8 ;;
+esac
+
 #environment
-export LANG=ja_JP.UTF-8
 if type nvim >/dev/null; then
   export EDITOR="nvim"
 else

@@ -139,3 +139,10 @@ export PATH="$PATH:$HOME/.rvm/bin"
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
 fi
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /home/ryota/Projects/serverless-test/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/ryota/Projects/serverless-test/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /home/ryota/Projects/serverless-test/node_modules/tabtab/.completions/sls.zsh ]] && . /home/ryota/Projects/serverless-test/node_modules/tabtab/.completions/sls.zsh
