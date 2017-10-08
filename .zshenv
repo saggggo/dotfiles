@@ -7,11 +7,13 @@ case $TERM in
 esac
 
 #environment
-if type nvim >/dev/null; then
-  export EDITOR="nvim"
-else
-  export EDITOR="vim"
-fi
+export LANG=ja_JP.UTF-8
+export EDITOR="vim"
+#if type nvim >/dev/null; then
+#  export EDITOR="nvim"
+#else
+#  export EDITOR="vim"
+#fi
 
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin
 export XDG_CONFIG_HOME=$HOME/.config
