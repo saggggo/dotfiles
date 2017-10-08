@@ -3,11 +3,12 @@
 
 #environment
 export LANG=ja_JP.UTF-8
-if type nvim >/dev/null; then
-  export EDITOR="nvim"
-else
-  export EDITOR="vim"
-fi
+export EDITOR="vim"
+#if type nvim >/dev/null; then
+#  export EDITOR="nvim"
+#else
+#  export EDITOR="vim"
+#fi
 
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin
 export XDG_CONFIG_HOME=$HOME/.config
