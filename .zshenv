@@ -24,4 +24,8 @@ fi
 
 ## gpu acceraration
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64/
+
+export GOPATH=$HOME/.go
+export PATH=$PATH:$GOPATH/bin
+
 export TERMINAL=gnome-terminal
