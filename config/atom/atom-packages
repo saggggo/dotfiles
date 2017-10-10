@@ -39,7 +39,7 @@ pretty-json@1.6.4
 react@0.16.2
 script@3.16.0
 set-syntax@0.4.0
-sort-lines@0.15.0
+sort-lines@0.17.0
 tool-bar@1.1.0
 vim-mode-clipboard-plus@0.2.0
 vim-mode-plus@0.94.0

@@ -16,6 +16,7 @@
     di = diff
     f  = fetch
     fe = fetch
+    g  = grep
     l  = log --graph --oneline --decorate=full
     lg = log --graph --oneline --decorate=full
     log = log --graph --oneline --decorate=full

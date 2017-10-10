@@ -28,7 +28,7 @@ font pango:Monospace, FontAwesome 9
 # font, it doesn’t scale on retina/hidpi displays.
 
 #Disable window titlebars entirely
-for_window [class="^.*"] border pixel 0
+for_window [class="^.*"] border pixel 1
 
 #i3-gaps
 #gaps inner 10
