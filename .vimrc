@@ -102,7 +102,8 @@ set scrolloff=10
 "}}}
 
 "clipboardにアクセス
-set clipboard+=unnamedplus
+set clipboard&
+set clipboard^=unnamedplus
 
 "カラムライン
 set colorcolumn=80
