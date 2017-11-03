@@ -5,17 +5,16 @@ DOTPATH=${DOTPATH:-$HOME/dotfiles}
 while read line; do
     ln -s $HOME/dotfiles/$line $HOME/$line
 done < ${DOTPATH}/etc/homefiles
+ln -s $DOTPATH/.zsh.d $HOME/
 
 # githooks
 mkdir -p $DOTPATH/.git/hooks/sample
 mv $DOTPATH/.git/hooks/*.sample $DOTPATH/.git/hooks/sample
 ln -s $DOTPATH/githooks/* $DOTPATH/.git/hooks
 
-#i3 dotfiles
+#gui dotfiles
 ln -s $DOTPATH/i3 $HOME/.config/
 ln -s $DOTPATH/bin $HOME/
-
-#atom
 if [ -d $HOME/.atom ];then
   SETTING_FILES=(atom-packages comfig.cson terminal-commands.json)
   

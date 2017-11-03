@@ -103,3 +103,6 @@ if ! shopt -oq posix; then
   fi
 fi
 [ -r ~/.byobu/prompt ] && . ~/.byobu/prompt   #byobu-prompt#
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
