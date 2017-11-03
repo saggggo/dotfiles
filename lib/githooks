@@ -1,7 +1,0 @@
-#!/bin/bash
-DOTPATH=$HOME/dotfiles
-
-mkdir $DOTPATH/.git/hooks/sample
-mv $DOTPATH/.git/hooks/*.sample $DOTPATH/.git/hooks/sample
-
-ln -s $DOTPATH/githooks/* $DOTPATH/.git/hooks

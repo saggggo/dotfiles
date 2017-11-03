@@ -1,9 +1,0 @@
-#!/bin/bash
-
-PACKAGES=`cat ./apt-packages`
-
-sudo apt-get update
-for TARGET in $PACKAGES
-do
-    sudo apt-get install -y $TARGET
-done

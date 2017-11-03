@@ -1,5 +1,3 @@
-# WARNING! This file is not used
-
 # login shell
 # /etc/profile
 # -> $HOME/.bash_profile
@@ -9,3 +7,5 @@
 # no login shell
 # /etc/bash.bashrc
 # -> $HOME/.bashrc
+
+source $HOME/.env_profile

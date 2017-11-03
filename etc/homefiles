@@ -1,0 +1,13 @@
+.aliases
+.bashrc
+.gitconfig
+.gitconfig.local
+.profile
+.vimrc
+.xinputrc
+.zprofile
+.zshenv
+.zshrc
+.bash_profile
+.bash_login
+.env_profile

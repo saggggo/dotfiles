@@ -1,9 +1,9 @@
+set encoding=utf-8
+scriptencoding utf-8
+"↑文字コード設定は最初（順番変えちゃだめ)
 
 "vi互換機能の無効化
 if ! &compatible | set nocompatible | endif
-
-"文字コード設定
-scriptencoding utf-8
 
 "filetypeの検出の有効化
 filetype plugin indent on 
@@ -12,7 +12,7 @@ filetype plugin indent on
 set fileformats=unix,dos,mac
 
 "文字幅が未定義のものを2文字として表示
-set ambiwidth=single
+set ambiwidth=double
 
 "syntax 有効化
 syntax on 
