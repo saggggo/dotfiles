@@ -49,9 +49,10 @@ bindkey "^H" kill-word
   #don't add timestamp to histfile
   unsetopt EXTENDED_HISTORY
 #}}}
- # Use modern completion system
- autoload -Uz compinit
- compinit
+
+# Use modern completion system
+autoload -Uz compinit
+compinit
 
 #custom alias
 if [ -f $HOME/.aliases ]; then
@@ -77,6 +78,10 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 source /usr/local/bin/aws_zsh_completer.sh
+
+if [ -d $HOME/.zfunc ]; do
+    fpath+=$HOME/.zfunc
+fi
 
 #import local settings
 if [ -f $HOME/.zshrc.local ];then

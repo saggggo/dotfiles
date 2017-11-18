@@ -39,6 +39,7 @@ alias runghc="stack runghc"
 alias runhaskell="stack runghc"
 
 #custom alias
+alias rust='rustc'
 alias pwgen='pwgen -s -y 12 3'
 alias aws-lambda="python-lambda-local"
 alias srl="serverless"

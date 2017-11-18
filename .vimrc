@@ -103,7 +103,7 @@ set scrolloff=10
 
 "clipboardにアクセス
 set clipboard&
-set clipboard^=unnamedplus
+set clipboard^=unnamed,unnamedplus
 
 "カラムライン
 set colorcolumn=80

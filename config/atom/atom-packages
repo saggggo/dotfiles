@@ -18,7 +18,7 @@ ide-haskell@1.9.6
 ide-haskell-hasktags@0.0.12
 increment-me@0.4.1
 intentions@1.1.5
-language-babel@2.77.0
+language-babel@2.79.0
 language-gradle@0.0.3
 language-graphql@0.9.0
 language-haskell@1.14.3
@@ -36,7 +36,7 @@ merge-conflicts@1.4.5
 minimap@4.29.7
 platformio-ide-terminal@2.7.0
 pretty-json@1.6.4
-react@0.16.3
+react@0.17.0
 script@3.17.3
 set-syntax@0.4.0
 sort-lines@0.18.0
