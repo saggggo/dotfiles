@@ -79,7 +79,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 source /usr/local/bin/aws_zsh_completer.sh
 
-if [ -d $HOME/.zfunc ]; do
+if [ -d $HOME/.zfunc ]; then
     fpath+=$HOME/.zfunc
 fi
 

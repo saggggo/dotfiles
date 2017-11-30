@@ -52,6 +52,12 @@ alias gg='git grep'
 alias vimalias='vim ~/.aliases'
 alias getIP='curl ip.mtak.nl'
 alias hc='herbstclient'
+alias dstat-full='dstat -Tclmdrn'
+alias dstat-mem='dstat -Tclm'
+alias dstat-cpu='dstat -Tclr'
+alias dstat-net='dstat -Tclnd'
+alias dstat-disk='dstat -Tcldr'
+
 #docker
 docker() {
     if [[ $1 == "update" ]];then
