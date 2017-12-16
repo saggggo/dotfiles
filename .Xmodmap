@@ -1,3 +1,5 @@
+pointer = 1 2 3 5 4 7 6 8 9 10 11 12
+
 remove lock = Caps_Lock
 remove lock = Eisu_toggle
 remove control = Control_L
@@ -17,3 +19,4 @@ add mod4 = Super_L
 add control = Control_L
 add control = Control_R
 add mod1 = Alt_L
+

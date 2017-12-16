@@ -9,3 +9,6 @@
 # no login shell
 # /etc/bash.bashrc
 # -> $HOME/.bashrc
+
+# process用
+source $HOME/.env_profile
