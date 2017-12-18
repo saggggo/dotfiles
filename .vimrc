@@ -14,23 +14,29 @@ set nobackup                                                                    
 set ambiwidth=double                                                            "文字幅が未定義のものを2文字として表示
 set backspace=indent,eol,start                                                  "backspaceで改行,インデントの削除可
 set hidden                                                                      "bufferを保存せずに移動可
-set colorcolumn=80                                                              "80文字でカラムライン
+set visualbell
 
 "command
 set wildmenu                                                                    "commandのtab補完有効化
-"set wildmode=longest:list,full
 set wildmode=list:longest                                                       "command補完時リスト表示かつ最長マッチ
 set history=10000                                                               "コマンド履歴10000件
 
 "view
+colorscheme industry
 set title                                                                       "windowのタイトル変更
+set showmode                                                                    " -- INSERT -- 等を表示
+set showcmd                                                                     " 一番下にコマンドを表示
 set number                                                                      "行数表示
 set ruler                                                                       "右下のかソール位置を示すやつ表示
 set cursorline                                                                  "カソール行の強調
 set scrolloff=10                                                                "カソール位置を中央に保つ
 set showtabline=2                                                               "tabを常に表示 tabよりbuffer使う
+set colorcolumn=80                                                              "80文字でカラムライン
+set wrap                                                                        "行が長いとき折り返す
 set list                                                                        "不可視文字を表示
 set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%                  "表示する不可視文字を設定
+set laststatus=2                                                                "下のstatuslineを常に表示
+set statusline=[%n]\ %<%F\ \ \ [%M%R%H%W%Y][%{&ff}]\ \ %=\ line:%l/%L\ col:%c\ \ \ %p%%\ \ \ @%{strftime(\"%H:%M:%S\")}
 
 "search
 set incsearch                                                                   "incremental検索
@@ -43,9 +49,24 @@ set smartcase                                                                   
 set autoindent                                                                  "インデントの有効化
 set smartindent                                                                 "改行時自動indent
 set expandtab                                                                   "tabをスペースにする
-set tabstop=1                                                                   "tabの表示幅
+set tabstop=4                                                                   "tabの表示幅, tab入力時のspaceの数
 set shiftwidth=0                                                                "自動indentの幅
-"表示行単位で移動{{{
+
+"GUI
+set mouse=a                                                                     "マウス有効化
+set clipboard&                                                                  "clipboardにアクセス
+set clipboard^=unnamed,unnamedplus                                              "clipboardにアクセス
+set nomousefocus                                                                "マウスでfocusを移動しない
+
+"keymap
+"bufferの移動
+nnoremap  <F2>    :bp<cr>
+onoremap  <F2>    :bp<cr>
+xnoremap  <F2>    :bp<cr>
+nnoremap  <F3>    :bn<cr>
+onoremap  <F3>    :bn<cr>
+xnoremap  <F3>    :bn<cr>
+"表示行単位で移動
 nnoremap j gj
 onoremap j gj
 xnoremap j gj
@@ -58,21 +79,8 @@ xnoremap <Down> gj
 nnoremap <Up> gk
 onoremap <Up> gk
 xnoremap <Up> gk
-"}}}
 
-"GUI
-set mouse=a                                                                     "マウス有効化
-set clipboard&                                                                  "clipboardにアクセス
-set clipboard^=unnamed,unnamedplus                                              "clipboardにアクセス
-
-"bufferの移動
-nnoremap  <F2>    :bp<cr>
-onoremap  <F2>    :bp<cr>
-xnoremap  <F2>    :bp<cr>
-nnoremap  <F3>    :bn<cr>
-onoremap  <F3>    :bn<cr>
-xnoremap  <F3>    :bn<cr>
-
-"スペルチェック
-"set spell
+"old
+"set spell                                                                       "スペルチェック
 "set spelllang=en,cjk
+
