@@ -58,13 +58,6 @@ xnoremap <Down> gj
 nnoremap <Up> gk
 onoremap <Up> gk
 xnoremap <Up> gk
-"}}}
-
-"GUI
-set mouse=a                                                                     "マウス有効化
-set clipboard&                                                                  "clipboardにアクセス
-set clipboard^=unnamed,unnamedplus                                              "clipboardにアクセス
-
 "bufferの移動
 nnoremap  <F2>    :bp<cr>
 onoremap  <F2>    :bp<cr>
@@ -72,6 +65,13 @@ xnoremap  <F2>    :bp<cr>
 nnoremap  <F3>    :bn<cr>
 onoremap  <F3>    :bn<cr>
 xnoremap  <F3>    :bn<cr>
+
+"GUI
+set mouse=a                                                                     "マウス有効化
+set clipboard&                                                                  "clipboardにアクセス
+set clipboard^=unnamed,unnamedplus                                              "clipboardにアクセス
+"set clipboard=unnamedplus
+
 
 "スペルチェック
 "set spell
