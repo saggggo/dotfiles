@@ -1,0 +1,5 @@
+cache_vim
+state_vim.vim
+.cache
+repos/*
+!repos/github.com/Shougo/dein.vim
