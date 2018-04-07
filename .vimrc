@@ -11,9 +11,13 @@ set runtimepath+=$HOME/dotfiles/vimrtp/repos/github.com/Shougo/dein.vim
 if dein#load_state('$HOME/dotfiles/vimrtp')
     call dein#begin('$HOME/dotfiles/vimrtp')
     call dein#add('$HOME/dotfiles/vimrtp/repos/github.com/Shougo/dein.vim')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('Xuyuanp/nerdtree-git-plugin')
     call dein#add('airblade/vim-gitgutter')                                     "行数の左にgitの変更を表示
-"    call dein#add('rhysd/accelerated-jk')                                      "カーソル移動高速化
     call dein#add('nathanaelkane/vim-indent-guides')                            "カーソル移動高速化
+"    call dein#add('rhysd/accelerated-jk')                                       "カーソル移動高速化
+"    call dein#add('thinca/vim-quickrun')                                        "コードを実行
+"    call dein#add('Shougo/vimproc.vim', {'build' : 'make'})                     "vim process
     call dein#end()
     call dein#save_state()
 endif
@@ -94,6 +98,7 @@ xnoremap <Down> gj
 nnoremap <Up> gk
 onoremap <Up> gk
 xnoremap <Up> gk
+map <C-n> :NERDTreeToggle<CR>
 
 "plugin specific configuration
 let g:gitgutter_map_keys = 0                                                    "git-gutterのkeymap off
