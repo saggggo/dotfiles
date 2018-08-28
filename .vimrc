@@ -14,7 +14,9 @@ if dein#load_state('$HOME/dotfiles/vimrtp')
     call dein#add('airblade/vim-gitgutter')                                     "行数の左にgitの変更を表示
 "    call dein#add('rhysd/accelerated-jk')                                      "カーソル移動高速化
     call dein#add('nathanaelkane/vim-indent-guides')                            "カーソル移動高速化
-    call dein#add('elzr/vim-json')                                              "json highlight
+    call dein#add('scrooloose/nerdtree')                                        "file tree view
+    call dein#add('leafgarland/typescript-vim')
+"    call dein#add('elzr/vim-json')                                              "json highlight
     call dein#end()
     call dein#save_state()
 endif
@@ -24,7 +26,7 @@ syntax on                                                                       
 set autoread                                                                    "開いてるファイルに変更があったらリロード
 set showmatch                                                                  "括弧入力時の対応する括弧の表示
 set nobackup                                                                    "バックアップしない
-set ambiwidth=double                                                            "文字幅が未定義のものを2文字として表示
+set ambiwidth=single                                                            "文字幅が未定義のものを2文字として表示
 set backspace=indent,eol,start                                                  "backspaceで改行,インデントの削除可
 set hidden                                                                      "bufferを保存せずに移動可
 set visualbell
@@ -63,7 +65,7 @@ set smartcase                                                                   
 set autoindent                                                                  "インデントの有効化
 set smartindent                                                                 "改行時自動indent
 set expandtab                                                                   "tabをスペースにする
-set tabstop=4                                                                   "tabの表示幅, tab入力時のspaceの数
+set tabstop=2                                                                   "tabの表示幅, tab入力時のspaceの数
 set shiftwidth=0                                                                "自動indentの幅
 set splitbelow                                                                  "画面分割下側
 set splitright                                                                  "画面分割右側
@@ -97,6 +99,7 @@ onoremap <Up> gk
 xnoremap <Up> gk
 
 "plugin specific configuration
+map <C-n> :NERDTreeToggle<CR>
 let g:gitgutter_map_keys = 0                                                    "git-gutterのkeymap off
 let g:indent_guides_enable_on_vim_startup = 1                                   "indent-guide deafult on
 let g:indent_guides_guide_size=1                                                "indent-guide size 1

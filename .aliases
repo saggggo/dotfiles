@@ -10,6 +10,10 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+alias c='cd'
+alias l='ls'
+alias p='pushd'
+alias d='dirs -v'
 #EDITOR
   alias v=$EDITOR
   alias vi=$EDITOR
