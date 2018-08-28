@@ -11,8 +11,9 @@ set runtimepath+=$HOME/dotfiles/vimrtp/repos/github.com/Shougo/dein.vim
 if dein#load_state('$HOME/dotfiles/vimrtp')
     call dein#begin('$HOME/dotfiles/vimrtp')
     call dein#add('$HOME/dotfiles/vimrtp/repos/github.com/Shougo/dein.vim')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('Xuyuanp/nerdtree-git-plugin')
     call dein#add('airblade/vim-gitgutter')                                     "行数の左にgitの変更を表示
-"    call dein#add('rhysd/accelerated-jk')                                      "カーソル移動高速化
     call dein#add('nathanaelkane/vim-indent-guides')                            "カーソル移動高速化
     call dein#add('scrooloose/nerdtree')                                        "file tree view
     call dein#add('leafgarland/typescript-vim')
@@ -97,6 +98,7 @@ xnoremap <Down> gj
 nnoremap <Up> gk
 onoremap <Up> gk
 xnoremap <Up> gk
+map <C-n> :NERDTreeToggle<CR>
 
 "plugin specific configuration
 map <C-n> :NERDTreeToggle<CR>
