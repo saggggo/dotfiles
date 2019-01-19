@@ -26,12 +26,6 @@ alias d='dirs -v'
   alias gst="git status"
   alias gbr="git branch -a"
 
-#cd
-  cdls(){
-      \cd "$@" && ls --color=auto
-  }
-  alias cd="cdls"
-
 #apt
   alias apts="apt search"
   alias apti="sudo apt-get install"

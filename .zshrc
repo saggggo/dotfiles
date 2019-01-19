@@ -77,8 +77,6 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-source /usr/local/bin/aws_zsh_completer.sh
-
 if [ -d $HOME/.zfunc ]; then
     fpath+=$HOME/.zfunc
 fi
@@ -93,3 +91,8 @@ for file in `find -L $HOME/.zsh.d -type f`; do
     source $file
 done
 
+if [ "$(uname)" = 'Darwin' ]; then
+  source /usr/local/share/zsh/site-functions/aws_zsh_completer.sh
+elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
+  source /usr/local/bin/aws_zsh_completer.sh
+fi

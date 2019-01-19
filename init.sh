@@ -11,6 +11,7 @@ ln -s $DOTPATH/.zsh.d $HOME/
 mkdir -p $DOTPATH/.git/hooks/sample
 mv $DOTPATH/.git/hooks/*.sample $DOTPATH/.git/hooks/sample
 ln -s $DOTPATH/githooks/* $DOTPATH/.git/hooks
+git submodule update
 
 #gui dotfiles
 ln -s $DOTPATH/i3 $HOME/.config/
