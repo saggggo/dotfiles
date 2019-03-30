@@ -94,5 +94,7 @@ done
 if [ "$(uname)" = 'Darwin' ]; then
   source /usr/local/share/zsh/site-functions/aws_zsh_completer.sh
 elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
-  source /usr/local/bin/aws_zsh_completer.sh
+  if [ -f /usr/local/bin/aws_zsh_completer.sh ]; then
+    source /usr/local/bin/aws_zsh_completer.sh
+  fi
 fi
