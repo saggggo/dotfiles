@@ -1,0 +1,3 @@
+#!/bin/bash
+
+watchman-wait -p "*.tex" $HOME/Documents/latex/*/*.tex
