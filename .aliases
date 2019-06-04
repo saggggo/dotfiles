@@ -64,3 +64,13 @@ docker() {
         command docker $@
     fi
 }
+
+
+if [ "$(uname)" = 'Darwin' ]; then
+  alias ls='gls'
+  alias df='gdf'
+  alias tail='gtail'
+  alias cat='gcat'
+  alias cp='gcp'
+  alias date='gdate'
+fi
