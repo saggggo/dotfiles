@@ -39,7 +39,8 @@ set wildmode=list:longest                                                       
 set history=10000                                                               "コマンド履歴10000件
 
 "view
-colorscheme industry
+"colorscheme industry
+colorscheme darkblue
 set title                                                                       "windowのタイトル変更
 set showmode                                                                    " -- INSERT -- 等を表示
 set showcmd                                                                     " 一番下にコマンドを表示
