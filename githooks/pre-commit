@@ -16,12 +16,6 @@ exec 1>&2
 # If there are whitespace errors, print the offending file names and fail.
 git diff-index --check --cached $against
 
-##Custom Config
-echo "atom package list update...."
-
-apm upgrade -c=false
-apm list -i -b > $PROJECTDIR/config/atom/atom-packages
-git add $PROJECTDIR/config/atom/atom-packages
 
 git secrets --pre_commit_hook -- "$@"
 echo "----------end---------"
