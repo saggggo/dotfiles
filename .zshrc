@@ -64,7 +64,11 @@ zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
+if type "dircolors" > /dev/null; then
+  eval "$(dircolors -b)"
+elif type "gdircolors" > /dev/null; then
+  eval "$(gdircolors -b)"
+fi
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
@@ -92,7 +96,9 @@ for file in `find -L $HOME/.zsh.d -type f`; do
 done
 
 if [ "$(uname)" = 'Darwin' ]; then
-  source /usr/local/share/zsh/site-functions/aws_zsh_completer.sh
+  if [ -f /usr/local/share/zsh/site-functions/aws_zsh_completer.sh ]; then
+    source /usr/local/share/zsh/site-functions/aws_zsh_completer.sh
+  fi
 elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
   if [ -f /usr/local/bin/aws_zsh_completer.sh ]; then
     source /usr/local/bin/aws_zsh_completer.sh

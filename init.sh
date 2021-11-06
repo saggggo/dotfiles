@@ -1,6 +1,10 @@
 #!/bin/bash
 DOTPATH=${DOTPATH:-$HOME/dotfiles}
 
+cd $DOTPATH
+git submodule init
+git submodule update
+
 # dotfiles link
 while read line; do
     ln -s $HOME/dotfiles/$line $HOME/$line
