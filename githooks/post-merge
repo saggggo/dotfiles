@@ -3,6 +3,4 @@ echo "------post-merge------"
 
 PROJECTDIR=`git rev-parse --show-toplevel`
 
-apm install --packages-file $PROJECTDIR/config/atom/atom-packages
-
 echo "---------end----------"

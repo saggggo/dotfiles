@@ -8,7 +8,7 @@ git submodule update
 # dotfiles link
 while read line; do
     ln -s $HOME/dotfiles/$line $HOME/$line
-done < ${DOTPATH}/etc/homefiles
+done < ${DOTPATH}/etc/dotfiles
 ln -s $DOTPATH/.zsh.d $HOME/
 
 ln -s $DOTPATH/bin $HOME/
