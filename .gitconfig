@@ -29,3 +29,5 @@
 [user]
 	name = Saggggo
 	email = sagoryota@gmail.com
+[url "git@github.com:"]
+	insteadOf = https://github.com/
