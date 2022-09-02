@@ -13,3 +13,4 @@
 .zshrc
 .zlogin
 .Xmodmap
+.tmux.conf
