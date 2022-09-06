@@ -22,7 +22,7 @@ prompt adam1
 setopt histignorealldups
 
 #invalid ctrl+d
-#setopt ignore_eof 
+#setopt ignore_eof
 
 # custom keybind
 bindkey -e
@@ -104,3 +104,7 @@ elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
     source /usr/local/bin/aws_zsh_completer.sh
   fi
 fi
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -4,7 +4,6 @@
 .bashrc
 .env_profile
 .gitconfig
-.gitconfig.local
 .profile
 .vimrc
 .xinputrc
