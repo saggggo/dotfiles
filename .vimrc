@@ -6,21 +6,21 @@ if ! &compatible | set nocompatible | endif                                     
 filetype plugin indent on                                                       "filetypeの検出の有効化
 set fileformats=unix,dos,mac                                                    "改行コードの自動認識
 
-set runtimepath+=$HOME/dotfiles/vimrtp/repos/github.com/Shougo/dein.vim
+" set runtimepath+=$HOME/dotfiles/vimrtp/repos/github.com/Shougo/dein.vim
 
-if dein#load_state('$HOME/dotfiles/vimrtp')
-    call dein#begin('$HOME/dotfiles/vimrtp')
-    call dein#add('$HOME/dotfiles/vimrtp/repos/github.com/Shougo/dein.vim')
-    call dein#add('scrooloose/nerdtree')
-    call dein#add('Xuyuanp/nerdtree-git-plugin')
-    call dein#add('airblade/vim-gitgutter')                                     "行数の左にgitの変更を表示
-    call dein#add('nathanaelkane/vim-indent-guides')                            "カーソル移動高速化
-    call dein#add('scrooloose/nerdtree')                                        "file tree view
-    call dein#add('leafgarland/typescript-vim')
-"    call dein#add('elzr/vim-json')                                              "json highlight
-    call dein#end()
-    call dein#save_state()
-endif
+"if dein#load_state('$HOME/dotfiles/vimrtp')
+"    call dein#begin('$HOME/dotfiles/vimrtp')
+"    call dein#add('$HOME/dotfiles/vimrtp/repos/github.com/Shougo/dein.vim')
+"    call dein#add('scrooloose/nerdtree')
+"    call dein#add('Xuyuanp/nerdtree-git-plugin')
+"    call dein#add('airblade/vim-gitgutter')                                     "行数の左にgitの変更を表示
+"    call dein#add('nathanaelkane/vim-indent-guides')                            "カーソル移動高速化
+"    call dein#add('scrooloose/nerdtree')                                        "file tree view
+"    call dein#add('leafgarland/typescript-vim')
+""    call dein#add('elzr/vim-json')                                              "json highlight
+"    call dein#end()
+"    call dein#save_state()
+"endif
 
 "general
 syntax on                                                                       "syntax 有効化
