@@ -27,7 +27,7 @@
     st = status
     sh = stash
 [user]
-	name = Saggggo
-	email = sagoryota@gmail.com
+  name = Saggggo
+  email = 11752497+saggggo@users.noreply.github.com 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
