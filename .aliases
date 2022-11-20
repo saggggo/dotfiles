@@ -7,8 +7,7 @@ if [ -x /usr/bin/dircolors ]; then
 
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
+    alias egrep='egrep --color=auto' fi
 
 alias c='cd'
 alias l='ls'
@@ -25,17 +24,6 @@ alias d='dirs -v'
   alias gadd='git add'
   alias gst="git status"
   alias gbr="git branch -a"
-
-#apt
-  alias apts="apt search"
-  alias apti="sudo apt-get install"
-  alias aptu="sudo apt-get update && sudo apt-get upgrade"
-#haskell
-alias ghc="stack ghc"
-alias ghci="stack ghci"
-alias runghc="stack runghc"
-alias runhaskell="stack runghc"
-
 
 #custom alias
 alias rust='rustc'
@@ -65,7 +53,6 @@ docker() {
         command docker $@
     fi
 }
-
 
 if [ "$(uname)" = 'Darwin' ]; then
   alias ls='gls'
