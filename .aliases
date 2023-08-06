@@ -7,7 +7,8 @@ if [ -x /usr/bin/dircolors ]; then
 
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto' fi
+    alias egrep='egrep --color=auto'
+ fi
 
 alias c='cd'
 alias l='ls'
@@ -44,15 +45,6 @@ alias dstat-mem='dstat -Tclm'
 alias dstat-cpu='dstat -Tclr'
 alias dstat-net='dstat -Tclnd'
 alias dstat-disk='dstat -Tcldr'
-
-#docker
-docker() {
-    if [[ $1 == "update" ]];then
-        command docker images | grep -v REPOSITORY |awk '{print $1}' | xargs -L1 docker pull
-    else
-        command docker $@
-    fi
-}
 
 if [ "$(uname)" = 'Darwin' ]; then
   alias ls='gls'

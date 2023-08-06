@@ -5,12 +5,39 @@ cd $DOTPATH
 git submodule init
 git submodule update
 
+# check command existance
+# command -v zsh || {echo "'zsh' command is not found." && exit 1;}
+
+
 # dotfiles link
-while read line; do
-  if [ ! -f $HOME/$line ]; then
+dotfiles=(
+  ".aliases"
+  ".profile"
+  ".env_profile"
+  ".bash_profile"
+  ".bash_login"
+  ".bashrc"
+  ".vimrc"
+  ".gitconfig"
+  ".vimrc"
+  ".xinputrc"
+  ".zprofile"
+  ".zshenv"
+  ".zlogin"
+  ".Xmodmap"
+  ".tmux.conf"
+)
+for line in ${dotfiles[@]}; do
+  if [ -e "$HOME/$line" ]; then
+    read -p "$HOME/$line is exist. Do you want to overwrite? [y/n]: " answer < /dev/tty
+    if [ "$answer" != "${answer#[Yy]}" ]; then
+      mv $HOME/$line $HOME/$line._temporary
+      ln -s $HOME/dotfiles/$line $HOME/$line && rm $HOME/$line $HOME/$line._temporary || mv $HOME/dotfiles.bak/$line.bak $HOME/$line._temporary
+    fi
+  else
     ln -s $HOME/dotfiles/$line $HOME/$line
   fi
-done < ${DOTPATH}/etc/dotfiles
+done
 
 if [ ! -d $HOME/.zsh.d ]; then
   ln -s $DOTPATH/.zsh.d $HOME/
