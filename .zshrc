@@ -105,3 +105,19 @@ for file in `find -L $HOME/.zsh.d -type f`; do
     source $file
 done
 
+if [ "$(uname)" = 'Darwin' ]; then
+  if [ -f /usr/local/share/zsh/site-functions/aws_zsh_completer.sh ]; then
+    source /usr/local/share/zsh/site-functions/aws_zsh_completer.sh
+  fi
+elif [ "$(expr substr $(uname -s) 1 5)" = 'Linux' ]; then
+  if [ -f /usr/local/bin/aws_zsh_completer.sh ]; then
+    source /usr/local/bin/aws_zsh_completer.sh
+  fi
+fi
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source /Users/ryotasago/.docker/init-zsh.sh || true # Added by Docker Desktop
+export PATH="/usr/local/opt/postgresql@17/bin:$PATH"

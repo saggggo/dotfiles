@@ -19,3 +19,4 @@ case $TERM in
 esac
 
 source $HOME/.env_profile
+. "$HOME/.cargo/env"

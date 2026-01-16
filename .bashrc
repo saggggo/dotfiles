@@ -106,3 +106,6 @@ fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+source /Users/ryotasago/.docker/init-bash.sh || true # Added by Docker Desktop
+. "$HOME/.cargo/env"

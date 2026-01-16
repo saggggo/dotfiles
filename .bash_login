@@ -10,3 +10,4 @@
 # /etc/bash.bashrc
 # -> $HOME/.bashrc
 
+. "$HOME/.cargo/env"

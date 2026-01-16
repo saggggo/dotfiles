@@ -22,23 +22,14 @@ alias d='dirs -v'
 #git
   alias g='git'
   alias gi='git'
-  alias gadd='git add'
-  alias gst="git status"
-  alias gbr="git branch -a"
 
 #custom alias
 alias rust='rustc'
 alias pwgen='pwgen -s -y 12 3'
-alias aws-lambda="python-lambda-local"
-alias srl="serverless"
-alias pstree='pstree -p'
-alias pgrep='pgrep -l'
 alias prettyjson='python -m json.tool'
 alias xmlformatter='xmlstarlet format --indent-tab'
 alias sshconf='cat $HOME/.ssh/config'
-alias gg='git grep'
-alias vimalias='vim ~/.aliases'
-alias getIP='curl ip.mtak.nl'
+alias getip='curl ip.mtak.nl'
 alias hc='herbstclient'
 alias dstat-full='dstat -Tclmdrn'
 alias dstat-mem='dstat -Tclm'

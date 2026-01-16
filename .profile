@@ -12,3 +12,4 @@
 
 # process用
 source $HOME/.env_profile
+. "$HOME/.cargo/env"
