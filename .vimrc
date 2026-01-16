@@ -85,15 +85,3 @@ onoremap <Up> gk
 xnoremap <Up> gk
 map <C-n> :NERDTreeToggle<CR>
 
-"plugin specific configuration
-map <C-n> :NERDTreeToggle<CR>
-let g:gitgutter_map_keys = 0                                                    "git-gutterのkeymap off
-let g:indent_guides_enable_on_vim_startup = 1                                   "indent-guide deafult on
-let g:indent_guides_guide_size=1                                                "indent-guide size 1
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']                    "indent-guide helpとnerdtree off
-let g:indent_guides_default_mapping = 0                                         "indent-guide のkeymap off
-
-"old
-"set spell                                                                       "スペルチェック
-"set spelllang=en,cjk
-

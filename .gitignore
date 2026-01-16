@@ -3,5 +3,3 @@
 .vscode
 .gitconfig.local
 node_modules
-vimrtp/cache_gvim
-vimrtp/state_gvim.vim
