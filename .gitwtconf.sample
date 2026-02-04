@@ -1,0 +1,7 @@
+{
+  "worktree_dir": "../worktrees",
+  "copy_files": [
+    ".env",
+    ".env.local"
+  ]
+}

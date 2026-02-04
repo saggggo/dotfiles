@@ -1,0 +1,180 @@
+#!/bin/bash
+#
+# git-wt - git worktree wrapper command
+#
+# Usage: git-wt <branch-name> [base-branch]
+#
+# Reads .gitwtconf (JSON) from git root and creates a worktree
+# with automatic branch creation and file copying.
+#
+# To enable cd after worktree creation, source this script in your shell config:
+#   source /path/to/git-wt
+# Then use the 'git-wt' function instead of running the script directly.
+#
+
+# Function version (for sourcing)
+git-wt() {
+    _git_wt "$@"
+    local ret=$?
+    if [ $ret -eq 0 ] && [ -n "$_GIT_WT_PATH" ]; then
+        cd "$_GIT_WT_PATH"
+        unset _GIT_WT_PATH
+    fi
+    return $ret
+}
+
+# Main implementation
+_git_wt() {
+
+set -e
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+# Print error message and exit
+error() {
+    echo -e "${RED}Error: $1${NC}" >&2
+    exit 1
+}
+
+# Print info message
+info() {
+    echo -e "${GREEN}$1${NC}"
+}
+
+# Print warning message
+warn() {
+    echo -e "${YELLOW}$1${NC}"
+}
+
+# Check if jq is installed
+command -v jq >/dev/null 2>&1 || error "jq is required but not installed. Please install jq."
+
+# Check arguments
+if [ $# -lt 1 ]; then
+    echo "Usage: git-wt <branch-name> [base-branch]"
+    echo ""
+    echo "Arguments:"
+    echo "  branch-name   Name of the branch for the worktree (required)"
+    echo "  base-branch   Base branch for new branch creation (optional, defaults to current branch)"
+    exit 1
+fi
+
+BRANCH_NAME="$1"
+BASE_BRANCH="${2:-}"
+
+# Get current branch (before changing directory)
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || error "Not a git repository"
+
+# Get git root directory
+GIT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null) || error "Not a git repository"
+
+# Config file path
+CONFIG_FILE="$GIT_ROOT/.gitwtconf"
+
+# Check if config file exists
+if [ ! -f "$CONFIG_FILE" ]; then
+    error ".gitwtconf not found in git root: $GIT_ROOT"
+fi
+
+# Validate JSON
+if ! jq empty "$CONFIG_FILE" 2>/dev/null; then
+    error ".gitwtconf is not valid JSON"
+fi
+
+# Read config values
+WORKTREE_DIR=$(jq -r '.worktree_dir // ""' "$CONFIG_FILE")
+if [ -z "$WORKTREE_DIR" ]; then
+    error "worktree_dir is not specified in .gitwtconf"
+fi
+
+# Convert branch name to directory name (replace / with -)
+DIR_NAME=$(echo "$BRANCH_NAME" | sed 's/\//-/g')
+
+# Resolve worktree directory (relative to git root)
+cd "$GIT_ROOT"
+WORKTREE_BASE=$(cd "$GIT_ROOT" && mkdir -p "$WORKTREE_DIR" && cd "$WORKTREE_DIR" && pwd)
+WORKTREE_PATH="$WORKTREE_BASE/$DIR_NAME"
+
+# Check if worktree already exists
+if [ -d "$WORKTREE_PATH" ]; then
+    error "Worktree directory already exists: $WORKTREE_PATH"
+fi
+
+# Check if branch exists (local or remote)
+branch_exists() {
+    git show-ref --verify --quiet "refs/heads/$1" 2>/dev/null || \
+    git show-ref --verify --quiet "refs/remotes/origin/$1" 2>/dev/null
+}
+
+# Create worktree
+info "Creating worktree for branch: $BRANCH_NAME"
+
+if branch_exists "$BRANCH_NAME"; then
+    info "Branch '$BRANCH_NAME' exists, creating worktree..."
+    git worktree add "$WORKTREE_PATH" "$BRANCH_NAME"
+else
+    # Branch doesn't exist, create new branch
+    if [ -z "$BASE_BRANCH" ]; then
+        BASE_BRANCH="$CURRENT_BRANCH"
+    fi
+    info "Branch '$BRANCH_NAME' does not exist, creating from '$BASE_BRANCH'..."
+    git worktree add -b "$BRANCH_NAME" "$WORKTREE_PATH" "$BASE_BRANCH"
+fi
+
+# Copy files specified in config
+info "Copying files..."
+COPY_FILES=$(jq -r '.copy_files // [] | .[]' "$CONFIG_FILE")
+
+if [ -n "$COPY_FILES" ]; then
+    while IFS= read -r file; do
+        if [ -n "$file" ]; then
+            SRC="$GIT_ROOT/$file"
+            DEST="$WORKTREE_PATH/$file"
+            
+            if [ -e "$SRC" ]; then
+                # Create destination directory if needed
+                DEST_DIR=$(dirname "$DEST")
+                mkdir -p "$DEST_DIR"
+                
+                # Copy file or directory
+                if [ -d "$SRC" ]; then
+                    cp -r "$SRC" "$DEST"
+                    info "  Copied directory: $file"
+                else
+                    cp "$SRC" "$DEST"
+                    info "  Copied: $file"
+                fi
+            else
+                warn "  Skipped (not found): $file"
+            fi
+        fi
+    done <<< "$COPY_FILES"
+else
+    info "  No files to copy"
+fi
+
+echo ""
+info "Worktree created successfully!"
+echo "  Path: $WORKTREE_PATH"
+echo "  Branch: $BRANCH_NAME"
+
+# Export path for the wrapper function
+export _GIT_WT_PATH="$WORKTREE_PATH"
+
+set +e
+}
+
+# If script is executed directly (not sourced), run the function
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]] || [[ -z "${BASH_SOURCE[0]}" ]]; then
+    _git_wt "$@"
+    if [ $? -eq 0 ] && [ -n "$_GIT_WT_PATH" ]; then
+        echo ""
+        echo "To switch to the worktree:"
+        echo "  cd $_GIT_WT_PATH"
+        unset _GIT_WT_PATH
+    fi
+fi
