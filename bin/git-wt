@@ -157,6 +157,19 @@ else
     info "  No files to copy"
 fi
 
+# Run post-create hook if exists
+POST_CREATE_HOOK="$GIT_ROOT/.gitwthooks"
+if [ -x "$POST_CREATE_HOOK" ]; then
+    info "Running post-create hook..."
+    if "$POST_CREATE_HOOK" "$WORKTREE_PATH" "$BRANCH_NAME" "$BASE_BRANCH"; then
+        info "  Hook completed successfully"
+    else
+        warn "  Hook exited with non-zero status"
+    fi
+elif [ -f "$POST_CREATE_HOOK" ]; then
+    warn "post-create hook exists but is not executable: $POST_CREATE_HOOK"
+fi
+
 echo ""
 info "Worktree created successfully!"
 echo "  Path: $WORKTREE_PATH"
