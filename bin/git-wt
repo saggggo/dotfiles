@@ -2,31 +2,23 @@
 #
 # git-wt - git worktree wrapper command
 #
-# Usage: git-wt <branch-name> [base-branch]
+# Usage:
+#   git-wt                                Interactive worktree selector (default)
+#   git-wt add <branch-name> [base]       Create a new worktree
+#   git-wt rm <branch-name> [-f] [-B]     Remove a worktree and branch
+#   git-wt list                           List all worktrees
 #
 # Reads .gitwtconf (JSON) from git root and creates a worktree
 # with automatic branch creation and file copying.
 #
-# To enable cd after worktree creation, source this script in your shell config:
-#   source /path/to/git-wt
-# Then use the 'git-wt' function instead of running the script directly.
+# Note: A script cannot change the parent shell's working directory.
+# This tool prints the target path / `cd` command for you to run.
 #
 
 # Function version (for sourcing)
 git-wt() {
     _git_wt "$@"
-    local ret=$?
-    if [ $ret -eq 0 ] && [ -n "$_GIT_WT_PATH" ]; then
-        cd "$_GIT_WT_PATH"
-        unset _GIT_WT_PATH
-    fi
-    return $ret
 }
-
-# Main implementation
-_git_wt() {
-
-set -e
 
 # Colors for output
 RED='\033[0;31m'
@@ -35,159 +27,450 @@ YELLOW='\033[0;33m'
 NC='\033[0m' # No Color
 
 # Print error message and exit
-error() {
+_git_wt_error() {
     echo -e "${RED}Error: $1${NC}" >&2
-    exit 1
+    return 1
 }
 
 # Print info message
-info() {
+_git_wt_info() {
     echo -e "${GREEN}$1${NC}"
 }
 
 # Print warning message
-warn() {
+_git_wt_warn() {
     echo -e "${YELLOW}$1${NC}"
 }
 
-# Check if jq is installed
-command -v jq >/dev/null 2>&1 || error "jq is required but not installed. Please install jq."
-
-# Check arguments
-if [ $# -lt 1 ]; then
-    echo "Usage: git-wt <branch-name> [base-branch]"
+# Show usage
+_git_wt_usage() {
+    echo "Usage: git-wt [command] [options]"
     echo ""
-    echo "Arguments:"
-    echo "  branch-name   Name of the branch for the worktree (required)"
-    echo "  base-branch   Base branch for new branch creation (optional, defaults to current branch)"
-    exit 1
-fi
-
-BRANCH_NAME="$1"
-BASE_BRANCH="${2:-}"
-
-# Get current branch (before changing directory)
-CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || error "Not a git repository"
-
-# Get git root directory
-GIT_ROOT=$(git rev-parse --show-toplevel 2>/dev/null) || error "Not a git repository"
-
-# Config file path
-CONFIG_FILE="$GIT_ROOT/.gitwtconf"
-
-# Check if config file exists
-if [ ! -f "$CONFIG_FILE" ]; then
-    error ".gitwtconf not found in git root: $GIT_ROOT"
-fi
-
-# Validate JSON
-if ! jq empty "$CONFIG_FILE" 2>/dev/null; then
-    error ".gitwtconf is not valid JSON"
-fi
-
-# Read config values
-WORKTREE_DIR=$(jq -r '.worktree_dir // ""' "$CONFIG_FILE")
-if [ -z "$WORKTREE_DIR" ]; then
-    error "worktree_dir is not specified in .gitwtconf"
-fi
-
-# Convert branch name to directory name (replace / with -)
-DIR_NAME=$(echo "$BRANCH_NAME" | sed 's/\//-/g')
-
-# Resolve worktree directory (relative to git root)
-cd "$GIT_ROOT"
-WORKTREE_BASE=$(cd "$GIT_ROOT" && mkdir -p "$WORKTREE_DIR" && cd "$WORKTREE_DIR" && pwd)
-WORKTREE_PATH="$WORKTREE_BASE/$DIR_NAME"
-
-# Check if worktree already exists
-if [ -d "$WORKTREE_PATH" ]; then
-    error "Worktree directory already exists: $WORKTREE_PATH"
-fi
-
-# Check if branch exists (local or remote)
-branch_exists() {
-    git show-ref --verify --quiet "refs/heads/$1" 2>/dev/null || \
-    git show-ref --verify --quiet "refs/remotes/origin/$1" 2>/dev/null
+    echo "Commands:"
+    echo "  (none)                              Interactive worktree selector (default)"
+    echo "  add <branch-name> [base-branch]    Create a new worktree for the branch"
+    echo "  rm <branch-name> [-f] [-B]         Remove a worktree and branch"
+    echo "  list                               List all worktrees (non-interactive)"
+    echo ""
+    echo "Options for 'add':"
+    echo "  branch-name    Name of the branch for the worktree (required)"
+    echo "  base-branch    Base branch for new branch creation (optional)"
+    echo ""
+    echo "Options for 'rm':"
+    echo "  -f, --force        Force removal even with uncommitted changes"
+    echo "  -B, --no-branch    Keep the branch (don't delete it)"
+    echo ""
+    echo "Examples:"
+    echo "  git-wt                               Select and switch to a worktree"
+    echo "  git-wt add feature/new-feature       Create worktree from current branch"
+    echo "  git-wt add feature/new-feature main  Create worktree from main branch"
+    echo "  git-wt rm feature/old-feature        Remove worktree and delete branch"
+    echo "  git-wt rm feature/old-feature -B     Remove worktree only (keep branch)"
 }
 
-# Create worktree
-info "Creating worktree for branch: $BRANCH_NAME"
+# List worktrees (non-interactive)
+_git_wt_list() {
+    git worktree list
+}
 
-if branch_exists "$BRANCH_NAME"; then
-    info "Branch '$BRANCH_NAME' exists, creating worktree..."
-    git worktree add "$WORKTREE_PATH" "$BRANCH_NAME"
-else
-    # Branch doesn't exist, create new branch
-    if [ -z "$BASE_BRANCH" ]; then
-        BASE_BRANCH="$CURRENT_BRANCH"
+# Interactive worktree selector
+_git_wt_select() {
+    local porcelain
+    porcelain=$(git worktree list --porcelain 2>/dev/null) || { _git_wt_error "Not a git repository"; return 1; }
+
+    local -a paths
+    local -a branches
+    local current_path=""
+    local current_branch=""
+
+    while IFS= read -r line; do
+        case "$line" in
+            worktree\ *)
+                current_path="${line#worktree }"
+                current_branch=""
+                paths+=("$current_path")
+                ;;
+            branch\ refs/heads/*)
+                current_branch="${line#branch refs/heads/}"
+                # Update last branch entry for current path
+                branches[${#paths[@]}-1]="$current_branch"
+                ;;
+            detached)
+                branches[${#paths[@]}-1]="(detached)"
+                ;;
+        esac
+    done <<< "$porcelain"
+
+    if [ ${#paths[@]} -eq 0 ]; then
+        _git_wt_warn "No worktrees found"
+        return 1
     fi
-    info "Branch '$BRANCH_NAME' does not exist, creating from '$BASE_BRANCH'..."
-    git worktree add -b "$BRANCH_NAME" "$WORKTREE_PATH" "$BASE_BRANCH"
-fi
+    
+    local selected_path=""
+    
+    # Use fzf if available, otherwise use select
+    if command -v fzf >/dev/null 2>&1; then
+        # Create display list with branch info
+        local display_list=""
+        local i
+        for ((i=0; i<${#paths[@]}; i++)); do
+            local b="${branches[$i]}"
+            if [ -z "$b" ]; then
+                b="(unknown)"
+            fi
+            display_list+="${paths[$i]} [$b]"$'\n'
+        done
+        
+        local selected
+        selected=$(echo -n "$display_list" | fzf --prompt="Select worktree: " --height=40% --reverse)
+        
+        if [ -n "$selected" ]; then
+            selected_path=$(echo "$selected" | awk '{print $1}')
+        fi
+    else
+        # Fallback to select menu
+        echo "ワークツリーを選択してください:"
+        echo ""
+        
+        local i=1
+        local idx
+        for ((idx=0; idx<${#paths[@]}; idx++)); do
+            local b="${branches[$idx]}"
+            if [ -z "$b" ]; then
+                b="(unknown)"
+            fi
+            echo "  $i) ${paths[$idx]} [$b]"
+            ((i++))
+        done
+        
+        echo ""
+        read -p "番号を入力 (1-$((i-1))): " choice
+        
+        if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -lt "$i" ]; then
+            selected_path="${paths[$((choice-1))]}"
+        else
+            echo "キャンセルしました"
+            return 0
+        fi
+    fi
+    
+    if [ -n "$selected_path" ]; then
+        echo ""
+        echo "Selected worktree:"
+        echo "  Path: $selected_path"
+        echo ""
+        echo "To switch to the worktree:"
+        echo "  cd $selected_path"
+    else
+        echo "キャンセルしました"
+    fi
+    
+    return 0
+}
 
-# Copy files specified in config
-info "Copying files..."
-COPY_FILES=$(jq -r '.copy_files // [] | .[]' "$CONFIG_FILE")
-
-if [ -n "$COPY_FILES" ]; then
-    while IFS= read -r file; do
-        if [ -n "$file" ]; then
-            SRC="$GIT_ROOT/$file"
-            DEST="$WORKTREE_PATH/$file"
-            
-            if [ -e "$SRC" ]; then
-                # Create destination directory if needed
-                DEST_DIR=$(dirname "$DEST")
-                mkdir -p "$DEST_DIR"
-                
-                # Copy file or directory
-                if [ -d "$SRC" ]; then
-                    cp -r "$SRC" "$DEST"
-                    info "  Copied directory: $file"
-                else
-                    cp "$SRC" "$DEST"
-                    info "  Copied: $file"
+# Remove worktree
+_git_wt_rm() {
+    local branch_name=""
+    local force=false
+    local delete_branch=true
+    
+    # Parse arguments
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            -f|--force)
+                force=true
+                shift
+                ;;
+            -B|--no-branch)
+                delete_branch=false
+                shift
+                ;;
+            -*)
+                _git_wt_error "Unknown option: $1"
+                return 1
+                ;;
+            *)
+                if [ -z "$branch_name" ]; then
+                    branch_name="$1"
                 fi
-            else
-                warn "  Skipped (not found): $file"
+                shift
+                ;;
+        esac
+    done
+    
+    if [ -z "$branch_name" ]; then
+        echo "Usage: git-wt rm <branch-name> [-f] [-b]"
+        return 1
+    fi
+    
+    # Get git root directory
+    local git_root
+    git_root=$(git rev-parse --show-toplevel 2>/dev/null) || { _git_wt_error "Not a git repository"; return 1; }
+    
+    # Find worktree path for the branch
+    local worktree_path
+    worktree_path=$(git worktree list --porcelain | grep -B2 "branch refs/heads/$branch_name" | grep "^worktree " | sed 's/^worktree //')
+    
+    if [ -z "$worktree_path" ]; then
+        # Try finding by directory name (branch name with / replaced by -)
+        local dir_name
+        dir_name=$(echo "$branch_name" | sed 's/\//-/g')
+        worktree_path=$(git worktree list --porcelain | grep "^worktree .*/$dir_name$" | sed 's/^worktree //')
+    fi
+    
+    if [ -z "$worktree_path" ]; then
+        _git_wt_error "Worktree for branch '$branch_name' not found"
+        echo ""
+        echo "Available worktrees:"
+        git worktree list
+        return 1
+    fi
+    
+    # Check if trying to remove main worktree
+    if [ "$worktree_path" = "$git_root" ]; then
+        _git_wt_error "Cannot remove the main worktree"
+        return 1
+    fi
+    
+    _git_wt_info "Worktree found: $worktree_path"
+    echo "  Branch: $branch_name"
+    echo ""
+    
+    # Confirmation
+    local confirm_msg="このワークツリーとブランチを削除しますか？"
+    if [ "$delete_branch" = false ]; then
+        confirm_msg="このワークツリーを削除しますか？（ブランチは残ります）"
+    fi
+    
+    read -p "$confirm_msg (y/N): " answer
+    if [[ ! "$answer" =~ ^[Yy]$ ]]; then
+        echo "キャンセルしました"
+        return 0
+    fi
+    
+    # Remove worktree
+    _git_wt_info "Removing worktree..."
+    if [ "$force" = true ]; then
+        git worktree remove --force "$worktree_path"
+    else
+        if ! git worktree remove "$worktree_path"; then
+            echo ""
+            _git_wt_warn "ワークツリーの削除に失敗しました。"
+            echo "未コミットの変更がある場合は -f オプションを使用してください:"
+            echo "  git-wt rm $branch_name -f"
+            return 1
+        fi
+    fi
+    
+    _git_wt_info "Worktree removed successfully!"
+    
+    # Delete branch if requested
+    if [ "$delete_branch" = true ]; then
+        echo ""
+        _git_wt_info "Deleting branch '$branch_name'..."
+        if git branch -d "$branch_name" 2>/dev/null; then
+            _git_wt_info "Branch deleted successfully!"
+        else
+            _git_wt_warn "ブランチの削除に失敗しました（マージされていない変更がある可能性があります）"
+            read -p "強制的にブランチを削除しますか？ (y/N): " force_delete
+            if [[ "$force_delete" =~ ^[Yy]$ ]]; then
+                git branch -D "$branch_name"
+                _git_wt_info "Branch force deleted!"
             fi
         fi
-    done <<< "$COPY_FILES"
-else
-    info "  No files to copy"
-fi
-
-# Run post-create hook if exists
-POST_CREATE_HOOK="$GIT_ROOT/.gitwthooks"
-if [ -x "$POST_CREATE_HOOK" ]; then
-    info "Running post-create hook..."
-    if "$POST_CREATE_HOOK" "$WORKTREE_PATH" "$BRANCH_NAME" "$BASE_BRANCH"; then
-        info "  Hook completed successfully"
-    else
-        warn "  Hook exited with non-zero status"
     fi
-elif [ -f "$POST_CREATE_HOOK" ]; then
-    warn "post-create hook exists but is not executable: $POST_CREATE_HOOK"
-fi
+    
+    return 0
+}
 
-echo ""
-info "Worktree created successfully!"
-echo "  Path: $WORKTREE_PATH"
-echo "  Branch: $BRANCH_NAME"
+# Create worktree (main implementation)
+_git_wt_add() {
+    local branch_name="$1"
+    local base_branch="${2:-}"
 
-# Export path for the wrapper function
-export _GIT_WT_PATH="$WORKTREE_PATH"
+    # Check if jq is installed
+    command -v jq >/dev/null 2>&1 || { _git_wt_error "jq is required but not installed. Please install jq."; return 1; }
 
-set +e
+    # Get current branch (before changing directory)
+    local current_branch
+    current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || { _git_wt_error "Not a git repository"; return 1; }
+
+    # Get git root directory
+    local git_root
+    git_root=$(git rev-parse --show-toplevel 2>/dev/null) || { _git_wt_error "Not a git repository"; return 1; }
+
+    # Config file path
+    local config_file="$git_root/.gitwtconf"
+
+    # Check if config file exists
+    if [ ! -f "$config_file" ]; then
+        _git_wt_error ".gitwtconf not found in git root: $git_root"
+        return 1
+    fi
+
+    # Validate JSON
+    if ! jq empty "$config_file" 2>/dev/null; then
+        _git_wt_error ".gitwtconf is not valid JSON"
+        return 1
+    fi
+
+    # Read config values
+    local worktree_dir
+    worktree_dir=$(jq -r '.worktree_dir // ""' "$config_file")
+    if [ -z "$worktree_dir" ]; then
+        _git_wt_error "worktree_dir is not specified in .gitwtconf"
+        return 1
+    fi
+
+    # Convert branch name to directory name (replace / with -)
+    local dir_name
+    dir_name=$(echo "$branch_name" | sed 's/\//-/g')
+
+    # Expand environment variables in worktree_dir (e.g., $HOME, ${HOME})
+    local expanded_worktree_dir
+    expanded_worktree_dir=$(eval echo "$worktree_dir")
+
+    # Resolve worktree directory (absolute path or relative to git root)
+    local worktree_base
+    if [[ "$expanded_worktree_dir" = /* ]]; then
+        # Absolute path (starts with /)
+        mkdir -p "$expanded_worktree_dir"
+        worktree_base=$(cd "$expanded_worktree_dir" && pwd)
+    else
+        # Relative path (from git root)
+        cd "$git_root"
+        mkdir -p "$expanded_worktree_dir"
+        worktree_base=$(cd "$expanded_worktree_dir" && pwd)
+    fi
+    local worktree_path="$worktree_base/$dir_name"
+
+    # Check if worktree already exists
+    if [ -d "$worktree_path" ]; then
+        _git_wt_error "Worktree directory already exists: $worktree_path"
+        return 1
+    fi
+
+    # Check if branch exists (local or remote)
+    _branch_exists() {
+        git show-ref --verify --quiet "refs/heads/$1" 2>/dev/null || \
+        git show-ref --verify --quiet "refs/remotes/origin/$1" 2>/dev/null
+    }
+
+    # Create worktree
+    _git_wt_info "Creating worktree for branch: $branch_name"
+
+    if _branch_exists "$branch_name"; then
+        _git_wt_info "Branch '$branch_name' exists, creating worktree..."
+        git worktree add "$worktree_path" "$branch_name"
+    else
+        # Branch doesn't exist, create new branch
+        if [ -z "$base_branch" ]; then
+            base_branch="$current_branch"
+        fi
+        _git_wt_info "Branch '$branch_name' does not exist, creating from '$base_branch'..."
+        git worktree add -b "$branch_name" "$worktree_path" "$base_branch"
+    fi
+
+    # Copy files specified in config
+    _git_wt_info "Copying files..."
+    local copy_files
+    copy_files=$(jq -r '.copy_files // [] | .[]' "$config_file")
+
+    if [ -n "$copy_files" ]; then
+        while IFS= read -r file; do
+            if [ -n "$file" ]; then
+                local src="$git_root/$file"
+                local dest="$worktree_path/$file"
+                
+                if [ -e "$src" ]; then
+                    # Create destination directory if needed
+                    local dest_dir
+                    dest_dir=$(dirname "$dest")
+                    mkdir -p "$dest_dir"
+                    
+                    # Copy file or directory
+                    if [ -d "$src" ]; then
+                        cp -r "$src" "$dest"
+                        _git_wt_info "  Copied directory: $file"
+                    else
+                        cp "$src" "$dest"
+                        _git_wt_info "  Copied: $file"
+                    fi
+                else
+                    _git_wt_warn "  Skipped (not found): $file"
+                fi
+            fi
+        done <<< "$copy_files"
+    else
+        _git_wt_info "  No files to copy"
+    fi
+
+    # Run post-create hook if exists
+    local post_create_hook="$git_root/.gitwthooks"
+    if [ -x "$post_create_hook" ]; then
+        _git_wt_info "Running post-create hook..."
+        if "$post_create_hook" "$worktree_path" "$branch_name" "$base_branch"; then
+            _git_wt_info "  Hook completed successfully"
+        else
+            _git_wt_warn "  Hook exited with non-zero status"
+        fi
+    elif [ -f "$post_create_hook" ]; then
+        _git_wt_warn "post-create hook exists but is not executable: $post_create_hook"
+    fi
+
+    echo ""
+    _git_wt_info "Worktree created successfully!"
+    echo "  Path: $worktree_path"
+    echo "  Branch: $branch_name"
+    echo ""
+    echo "To switch to the worktree:"
+    echo "  cd $worktree_path"
+
+    return 0
+}
+
+# Main dispatcher
+_git_wt() {
+    # Default: interactive worktree selector
+    if [ $# -lt 1 ]; then
+        _git_wt_select
+        return $?
+    fi
+
+    local command="$1"
+    shift
+
+    case "$command" in
+        add|new|create)
+            if [ $# -lt 1 ]; then
+                echo "Usage: git-wt add <branch-name> [base-branch]"
+                return 1
+            fi
+            _git_wt_add "$@"
+            ;;
+        rm|remove|delete)
+            _git_wt_rm "$@"
+            ;;
+        list|ls)
+            _git_wt_list "$@"
+            ;;
+        -h|--help|help)
+            _git_wt_usage
+            ;;
+        -*)
+            _git_wt_error "Unknown option: $command"
+            _git_wt_usage
+            return 1
+            ;;
+        *)
+            _git_wt_error "Unknown command: $command"
+            _git_wt_usage
+            return 1
+            ;;
+    esac
 }
 
 # If script is executed directly (not sourced), run the function
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]] || [[ -z "${BASH_SOURCE[0]}" ]]; then
     _git_wt "$@"
-    if [ $? -eq 0 ] && [ -n "$_GIT_WT_PATH" ]; then
-        echo ""
-        echo "To switch to the worktree:"
-        echo "  cd $_GIT_WT_PATH"
-        unset _GIT_WT_PATH
-    fi
 fi
