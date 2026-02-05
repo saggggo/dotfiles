@@ -58,3 +58,6 @@ if test (uname) = 'Darwin'
     end
 end
 
+if test "$SHLVL" = 1; and not set -q TMUX
+    tmux new-session -A -s main
+end
